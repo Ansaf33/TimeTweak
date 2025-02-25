@@ -19,7 +19,7 @@ public class ClassRepController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/reg={regNo}")
+    @GetMapping("/reg/{regNo}")
     public Student getClassRep(@PathVariable("regNo") String regNo) {
         return classRepService.getStudentByRegNo("regNo");
     }

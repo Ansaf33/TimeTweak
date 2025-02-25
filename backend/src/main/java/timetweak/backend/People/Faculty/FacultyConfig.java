@@ -9,7 +9,7 @@ import java.util.List;
 @Configuration
 public class FacultyConfig {
 
-
+    //@Bean
     CommandLineRunner faculty_runner(FacultyRepository facultyRepository) {
         return args -> {
             List<Faculty> facultyList = List.of(

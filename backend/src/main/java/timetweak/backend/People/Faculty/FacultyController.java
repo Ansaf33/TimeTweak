@@ -17,9 +17,9 @@ public class FacultyController {
         this.facultyService = facultyService;
     }
 
-    @GetMapping("/id={facultyId}")
+    @GetMapping("/id/{facultyId}")
     public Faculty getFaculty(@PathVariable("facultyId") String facultyId) {
-        return facultyService.getFaculty(facultyId);
+        return facultyService.getFacultyById(facultyId);
     }
 
     @GetMapping("/all")
@@ -37,6 +37,7 @@ public class FacultyController {
     public List<Course> getCourses(@PathVariable("facultyId") String facultyId) {
         return facultyService.getCoursesByFaculty(facultyId);
     }
+
 
 
 

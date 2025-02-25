@@ -3,6 +3,7 @@ package timetweak.backend.People.Faculty;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Proxy;
+import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Course.Course;
 import timetweak.backend.People.People;
 import timetweak.backend.People.roleType;
@@ -20,15 +21,27 @@ public class Faculty extends People {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-
     @JsonManagedReference
     private List<Course> courseList = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "recipient"
+    )
+    private List<Appointment>appointmentList = new ArrayList<>();
 
     public Faculty() {}
 
     public Faculty(String username, String password, String facultyId) {
         super(username, password, roleType.FACULTY);
         this.facultyId = facultyId;
+    }
+
+    public void addAppointment(Appointment appointment) {
+        appointmentList.add(appointment);
+    }
+
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
     }
 
     public String getFacultyId() {

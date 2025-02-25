@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Proxy;
+import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Course.Course;
 import timetweak.backend.People.People;
 import timetweak.backend.People.roleType;
@@ -24,9 +25,12 @@ public class Student extends People {
             joinColumns = @JoinColumn(name="student_id"),
             inverseJoinColumns = @JoinColumn(name="course_id")
     )
-
-
     private List<Course> enrolledCourses = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "client"
+    )
+    private List<Appointment>appointmentList = new ArrayList<>();
 
 
     public Student() {}
@@ -37,6 +41,13 @@ public class Student extends People {
         this.batch = batch;
     }
 
+    public List<Appointment> getAppointmentList() {
+        return appointmentList;
+    }
+
+    public void addAppointment(Appointment appointment) {
+        appointmentList.add(appointment);
+    }
 
     public String getRegNo() {
         return regNo;

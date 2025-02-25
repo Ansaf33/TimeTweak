@@ -3,7 +3,11 @@ package timetweak.backend.People.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+import timetweak.backend.Appointment.Appointment;
+import timetweak.backend.Course.Course;
 import timetweak.backend.People.PeopleService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -16,7 +20,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/reg={regNo}")
+    @GetMapping("/reg/{regNo}")
     public Student getStudent(@PathVariable("regNo") String regNo) {
         return studentService.getStudentByRegNo(regNo);
     }
@@ -27,10 +31,14 @@ public class StudentController {
         studentService.addStudent(student);
     }
 
-    @GetMapping("/reg/{regNo}/add/courseId/{courseId}")
-    public void addCourse(@PathVariable("regNo") String regNo, @PathVariable("courseId") String courseId) {
-        studentService.addCourseToStudent(regNo, courseId);
+    @PostMapping("/reg/{regNo}/add/{courseId}")
+    public void addStudentToReg(@PathVariable("regNo") String regNo, @PathVariable("courseId") String courseId) {
+        studentService.addCourseToStudent(regNo,courseId);
     }
+
+
+
+
 
 
 

@@ -17,7 +17,7 @@ public class FacultyService {
 
     }
 
-    public Faculty getFaculty(String facultyId){
+    public Faculty getFacultyById(String facultyId){
         return facultyRepository.findByFacultyId(facultyId);
     }
 
@@ -37,4 +37,6 @@ public class FacultyService {
         return facultyRepository.findByFacultyId(facultyId).getCourseList();
 
     }
+
+
 }
