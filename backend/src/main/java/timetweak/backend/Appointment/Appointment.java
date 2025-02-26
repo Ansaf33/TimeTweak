@@ -2,12 +2,12 @@ package timetweak.backend.Appointment;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import timetweak.backend.Components.slotName;
 import timetweak.backend.People.Faculty.Faculty;
 import timetweak.backend.People.Student.Student;
-import timetweak.backend.Slots.timing;
+import timetweak.backend.Components.timing;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -46,15 +46,13 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private appStatus status;
 
-    private timing startTime;
-    private timing endTime;
+    private slotName slot;
     private LocalDate date;
     private String reason;
 
-    public Appointment(appStatus status, timing startTime, timing endTime,String recipientIdentifier, String clientIdentifier, LocalDate date, String reason) {
+    public Appointment(appStatus status, slotName slot,timing startTime, timing endTime,String recipientIdentifier, String clientIdentifier, LocalDate date, String reason) {
         this.status = status;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.slot = slot;
         this.recipientIdentifier = recipientIdentifier;
         this.clientIdentifier = clientIdentifier;
         this.date = date;
@@ -127,21 +125,12 @@ public class Appointment {
         this.status = status;
     }
 
-    public timing getStartTime() {
-        return startTime;
+    public slotName getSlot() {
+        return slot;
     }
 
-    public void setStartTime(timing startTime) {
-        this.startTime = startTime;
+    public void setSlot(slotName slot) {
+        this.slot = slot;
     }
-
-    public timing getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(timing endTime) {
-        this.endTime = endTime;
-    }
-
 
 }

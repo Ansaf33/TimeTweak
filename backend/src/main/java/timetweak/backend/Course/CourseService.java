@@ -2,6 +2,7 @@ package timetweak.backend.Course;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import timetweak.backend.TimeTableEntry.TimeTableEntry;
 
 import java.util.List;
 
@@ -28,5 +29,10 @@ public class CourseService {
     public Course getCourseById(String courseId) {
         return courseRepository.findByCourseId(courseId);
 
+    }
+
+    public List<TimeTableEntry> getTimingsofCourse(String courseId) {
+        Course c = courseRepository.findByCourseId(courseId);
+        return c.getTimeTableEntries();
     }
 }

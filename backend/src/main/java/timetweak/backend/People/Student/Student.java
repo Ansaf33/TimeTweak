@@ -18,6 +18,7 @@ public class Student extends People {
 
     private String regNo;
     private String batch;
+    private String branch;
 
     @ManyToMany
     @JoinTable(
@@ -28,17 +29,28 @@ public class Student extends People {
     private List<Course> enrolledCourses = new ArrayList<>();
 
     @OneToMany(
-            mappedBy = "client"
+            mappedBy = "client",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Appointment>appointmentList = new ArrayList<>();
 
 
     public Student() {}
 
-    public Student(String username, String password, roleType role, String regNo, String batch) {
+    public Student(String username, String password, roleType role, String regNo, String batch,String branch) {
         super(username, password, roleType.STUDENT);
         this.regNo = regNo;
         this.batch = batch;
+        this.branch = branch;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
     public List<Appointment> getAppointmentList() {

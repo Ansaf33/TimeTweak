@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import timetweak.backend.People.Faculty.Faculty;
 import timetweak.backend.People.Student.Student;
+import timetweak.backend.Slot.Slot;
+import timetweak.backend.TimeTableEntry.TimeTableEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +38,21 @@ public class Course {
     @ManyToMany(
             mappedBy = "enrolledCourses"
     )
-
     @JsonIgnore
     private List<Student> enrolledStudents = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "course"
+    )
+    private List<TimeTableEntry> timeTableEntries = new ArrayList<>();
+
+    public List<TimeTableEntry> getTimeTableEntries() {
+        return timeTableEntries;
+    }
+
+    public void setTimeTableEntries(List<TimeTableEntry> timeTableEntries) {
+        this.timeTableEntries = timeTableEntries;
+    }
 
     public Course() {}
 

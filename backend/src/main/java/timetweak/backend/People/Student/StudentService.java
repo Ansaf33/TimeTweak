@@ -101,4 +101,13 @@ public class StudentService {
 
 
     }
+
+    public void removeStudentByRegNo(String regNo) {
+        Student student = getStudentByRegNo(regNo);
+        if( student == null) {
+            throw new RuntimeException("Student does not exist");
+        }
+        studentRepository.delete(student);
+    }
+
 }

@@ -31,6 +31,11 @@ public class StudentController {
         studentService.addStudent(student);
     }
 
+    @DeleteMapping("/reg/{regNo}/remove")
+    public void removeStudent(@PathVariable("regNo") String regNo) {
+        studentService.removeStudentByRegNo(regNo);
+    }
+
     @PostMapping("/reg/{regNo}/add/{courseId}")
     public void addStudentToReg(@PathVariable("regNo") String regNo, @PathVariable("courseId") String courseId) {
         studentService.addCourseToStudent(regNo,courseId);
@@ -50,6 +55,7 @@ public class StudentController {
     public void changeAppointmentReason(@PathVariable("regNo") String regNo,@PathVariable("appId") String appId, @RequestBody String reason) {
         studentService.changeAppointmentReason(regNo,appId,reason);
     }
+
 
 
 

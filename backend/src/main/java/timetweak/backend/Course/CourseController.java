@@ -2,6 +2,7 @@ package timetweak.backend.Course;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import timetweak.backend.TimeTableEntry.TimeTableEntry;
 
 import java.util.List;
 
@@ -24,6 +25,16 @@ public class CourseController {
     @GetMapping("/all")
     public List<Course> getAllCourses() {
         return courseService.getAllCourses();
+    }
+
+    @GetMapping("/{courseId}")
+    public Course getCourse(@PathVariable("courseId") String courseId) {
+        return courseService.getCourseById(courseId);
+    }
+
+    @GetMapping("/{courseId}/timing")
+    public List<TimeTableEntry> getTiming(@PathVariable("courseId") String courseId) {
+        return courseService.getTimingsofCourse(courseId);
     }
 
 

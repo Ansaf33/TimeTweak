@@ -25,7 +25,9 @@ public class Faculty extends People {
     private List<Course> courseList = new ArrayList<>();
 
     @OneToMany(
-            mappedBy = "recipient"
+            mappedBy = "recipient",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
     )
     private List<Appointment>appointmentList = new ArrayList<>();
 

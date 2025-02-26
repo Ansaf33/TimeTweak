@@ -14,8 +14,8 @@ public class ClassRep extends Student {
 
     public ClassRep() {}
 
-    public ClassRep(String username, String password, roleType role, String regNo, String batch, String course) {
-        super(username, password, role, regNo, batch);
+    public ClassRep(String username, String password, roleType role, String regNo, String batch, String branch, String course) {
+        super(username, password, role, regNo, batch, branch);
         this.course = course;
     }
 
