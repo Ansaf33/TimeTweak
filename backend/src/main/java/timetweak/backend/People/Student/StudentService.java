@@ -2,19 +2,26 @@ package timetweak.backend.People.Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import timetweak.backend.Appointment.Appointment;
+import timetweak.backend.Appointment.AppointmentRepository;
+import timetweak.backend.Appointment.AppointmentService;
 import timetweak.backend.Course.Course;
 import timetweak.backend.Course.CourseRepository;
+
+import java.util.List;
 
 @Service
 public class StudentService {
 
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
+    private final AppointmentRepository appointmentRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository, CourseRepository courseRepository) {
+    public StudentService(StudentRepository studentRepository, CourseRepository courseRepository, AppointmentRepository appointmentRepository) {
         this.studentRepository = studentRepository;
         this.courseRepository = courseRepository;
+        this.appointmentRepository = appointmentRepository;
     }
 
     // GET STUDENT BY REGISTRATION NUMBER
@@ -53,4 +60,45 @@ public class StudentService {
 
     }
 
+    public List<Appointment> getAllAppointments(String regNo) {
+        Student student = getStudentByRegNo(regNo);
+        if( student == null) {
+            throw new RuntimeException("Student does not exist");
+        }
+        return student.getAppointmentList();
+    }
+
+    public Appointment getAppointment(String regNo, String appointmentId) {
+        Student student = getStudentByRegNo(regNo);
+        if( student == null) {
+            throw new RuntimeException("Student does not exist");
+        }
+        Appointment a = appointmentRepository.findAppointmentByAppId(appointmentId);
+        if (a == null) {
+            throw new RuntimeException("Appointment does not exist");
+        }
+        if( !student.getAppointmentList().contains(a)) {
+            throw new RuntimeException("Appointment does not exist in student.");
+        }
+        return a;
+
+    }
+
+    public void changeAppointmentReason(String regNo,String appId,String reason) {
+        Student student = getStudentByRegNo(regNo);
+        if( student == null) {
+            throw new RuntimeException("Student does not exist");
+        }
+        Appointment a = appointmentRepository.findAppointmentByAppId(appId);
+        if (a == null) {
+            throw new RuntimeException("Appointment does not exist");
+        }
+        if( !student.getAppointmentList().contains(a)) {
+            throw new RuntimeException("Appointment does not exist in student.");
+        }
+        a.setReason(reason);
+        appointmentRepository.save(a);
+
+
+    }
 }

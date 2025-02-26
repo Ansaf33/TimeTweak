@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import timetweak.backend.People.Faculty.Faculty;
 import timetweak.backend.People.Student.Student;
+import timetweak.backend.Slots.timing;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -39,19 +41,51 @@ public class Appointment {
     private Faculty recipient;
     private String recipientIdentifier;
 
-    private appStatus status;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private String appId;
 
-    public Appointment(appStatus status, LocalDateTime startTime, LocalDateTime endTime,String recipientIdentifier, String clientIdentifier) {
+    @Enumerated(EnumType.STRING)
+    private appStatus status;
+
+    private timing startTime;
+    private timing endTime;
+    private LocalDate date;
+    private String reason;
+
+    public Appointment(appStatus status, timing startTime, timing endTime,String recipientIdentifier, String clientIdentifier, LocalDate date, String reason) {
         this.status = status;
         this.startTime = startTime;
         this.endTime = endTime;
         this.recipientIdentifier = recipientIdentifier;
         this.clientIdentifier = clientIdentifier;
+        this.date = date;
+        this.reason = reason;
     }
 
     public Appointment(){}
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public void setAppId(String appId) {
+        this.appId = appId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     public String getClientIdentifier() {
         return clientIdentifier;
@@ -93,19 +127,19 @@ public class Appointment {
         this.status = status;
     }
 
-    public LocalDateTime getStartTime() {
+    public timing getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(timing startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public timing getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(timing endTime) {
         this.endTime = endTime;
     }
 

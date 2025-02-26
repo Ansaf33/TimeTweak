@@ -35,7 +35,7 @@ public class AppointmentController {
     }
 
     @DeleteMapping("/remove/{appId}")
-    public void removeAppointment(@PathVariable("appId") Long appId) {
+    public void removeAppointment(@PathVariable("appId") String appId) {
         appointmentService.removeAppointment(appId);
     }
 

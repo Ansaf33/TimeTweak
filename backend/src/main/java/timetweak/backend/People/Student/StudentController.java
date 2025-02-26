@@ -36,6 +36,26 @@ public class StudentController {
         studentService.addCourseToStudent(regNo,courseId);
     }
 
+    @GetMapping("/reg/{regNo}/appointment/all")
+    public List<Appointment> getAllAppointments(@PathVariable("regNo") String regNo) {
+        return studentService.getAllAppointments(regNo);
+    }
+
+    @GetMapping("/reg/{regNo}/appointment/{appId}")
+    public Appointment getAppointment(@PathVariable("regNo") String regNo, @PathVariable("appId") String appId) {
+        return studentService.getAppointment(regNo,appId);
+    }
+
+    @PutMapping("/reg/{regNo}/appointment/{appId}/update-reason")
+    public void changeAppointmentReason(@PathVariable("regNo") String regNo,@PathVariable("appId") String appId, @RequestBody String reason) {
+        studentService.changeAppointmentReason(regNo,appId,reason);
+    }
+
+
+
+
+
+
 
 
 

@@ -11,6 +11,7 @@ import timetweak.backend.People.Student.StudentRepository;
 import timetweak.backend.People.Student.StudentService;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AppointmentService {
@@ -51,17 +52,21 @@ public class AppointmentService {
             throw new RuntimeException("Student not found");
         }
         Faculty f = facultyRepository.findByFacultyId(appointment.getRecipientIdentifier());
-        if(f == null) {
-            throw new RuntimeException("Faculty not found");
-        }
+
+
+        // add appointment to student repository
         appointment.setClient(s);
         s.addAppointment(appointment);
         studentRepository.save(s);
 
+        // add appointment to faculty repository
         appointment.setRecipient(f);
         f.addAppointment(appointment);
         facultyRepository.save(f);
 
+
+        // add appointment to appointment repository ( ... generate unique appointment ID )
+        appointment.setAppId(UUID.randomUUID().toString());
         appointmentRepository.save(appointment);
     }
 
@@ -74,11 +79,12 @@ public class AppointmentService {
         return f.getAppointmentList();
     }
 
-    public void removeAppointment(Long appId) {
-        Appointment a = appointmentRepository.findAppointmentById(appId);
+    public void removeAppointment(String appId) {
+        Appointment a = appointmentRepository.findAppointmentByAppId(appId);
         if(a == null) {
             throw new RuntimeException("Appointment not found");
         }
         appointmentRepository.delete(a);
     }
+
 }
