@@ -18,6 +18,7 @@ public class PeopleService {
         return peopleRepository.findByUsername(username);
     }
 
+    // remove person by username
     public void removePeople(String username) {
         peopleRepository.deleteByUsername(username);
     }

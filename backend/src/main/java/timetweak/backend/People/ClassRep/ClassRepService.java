@@ -16,10 +16,12 @@ public class ClassRepService {
         this.studentRepository = studentRepository;
     }
 
+    // returns class-rep by regNo
     public Student getStudentByRegNo(String regNo) {
         return studentRepository.findByRegNo(regNo);
     }
 
+    // adds class-rep to database
     public void addClassRep(ClassRep classRep) {
         Student existingStudent = getStudentByRegNo(classRep.getRegNo());
         if (existingStudent != null) {

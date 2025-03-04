@@ -24,11 +24,14 @@ public class FacultyService {
         this.appointmentRepository = appointmentRepository;
     }
 
+
+    // returns faculty by facultyID
     public Faculty getFacultyById(String facultyId) {
         Faculty f = facultyRepository.findByFacultyId(facultyId);
         return f;
     }
 
+    // adds faculty to database
     public void addFaculty(Faculty faculty) {
         Faculty existingFaculty = facultyRepository.findByFacultyId(faculty.getFacultyId());
         if (existingFaculty != null) {
@@ -37,16 +40,19 @@ public class FacultyService {
         facultyRepository.save(faculty);
     }
 
+    // returns all faculties
     public List<Faculty> getAllFaculty() {
         return facultyRepository.findAll();
     }
 
+    // returns courses by a faculty with facultyId
     public List<Course> getCoursesByFaculty(String facultyId ) {
         Faculty f = facultyRepository.findByFacultyId(facultyId);
         return f.getCourseList();
 
     }
 
+    // faculty with facultyId changes appointment with appId to newStatus
     public void updateAppointment(String facultyId,String appId, appStatus newStatus) {
         Faculty f = facultyRepository.findByFacultyId(facultyId);
         if( f == null ){
@@ -66,6 +72,7 @@ public class FacultyService {
 
     }
 
+    // getting all appointments for the faculty with facultyId
     public List<Appointment> getAllAppointments(String facultyId) {
         Faculty f = facultyRepository.findByFacultyId(facultyId);
         if( f == null ){
@@ -74,6 +81,7 @@ public class FacultyService {
         return f.getAppointmentList();
     }
 
+    // getting appointment with specific appointmentId for faculty with facultyId
     public Appointment getAppointment(String facultyId, String appointmentId) {
         Faculty f  = getFacultyById(facultyId);
         if( f == null) {

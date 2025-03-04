@@ -21,16 +21,18 @@ public class CourseService {
          courseRepository.save(course);
     }
 
-
+    // returns all courses
     public List<Course> getAllCourses() {
         return (List<Course>) courseRepository.findAll();
     }
 
+    // returns course by courseID
     public Course getCourseById(String courseId) {
         return courseRepository.findByCourseId(courseId);
 
     }
 
+    // returns TimeTableEntries for course with courseId
     public List<TimeTableEntry> getTimingsofCourse(String courseId) {
         Course c = courseRepository.findByCourseId(courseId);
         return c.getTimeTableEntries();

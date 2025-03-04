@@ -24,12 +24,12 @@ public class StudentService {
         this.appointmentRepository = appointmentRepository;
     }
 
-    // GET STUDENT BY REGISTRATION NUMBER
+    // returns student with registration number 'regNo'
     public Student getStudentByRegNo(String regNo) {
         return studentRepository.findByRegNo(regNo);
     }
 
-    // ADD STUDENT TO DATABASE
+    // adds student to database
     public void addStudent(Student student) {
         Student existingStudent = studentRepository.findByRegNo(student.getRegNo());
 
@@ -40,7 +40,7 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    // ENROLL STUDENT IN A COURSE
+    // enroll student to a course
     public void addCourseToStudent(String regNo,String courseId) {
         Student student = getStudentByRegNo(regNo);
         Course course = courseRepository.findByCourseId(courseId);
@@ -60,6 +60,7 @@ public class StudentService {
 
     }
 
+    // returns all appointments made by student with regNo
     public List<Appointment> getAllAppointments(String regNo) {
         Student student = getStudentByRegNo(regNo);
         if( student == null) {
@@ -68,6 +69,7 @@ public class StudentService {
         return student.getAppointmentList();
     }
 
+    // returns appointment made by student with 'regNo' by 'appId'
     public Appointment getAppointment(String regNo, String appointmentId) {
         Student student = getStudentByRegNo(regNo);
         if( student == null) {
@@ -84,6 +86,7 @@ public class StudentService {
 
     }
 
+    // updating appointment reason
     public void changeAppointmentReason(String regNo,String appId,String reason) {
         Student student = getStudentByRegNo(regNo);
         if( student == null) {
@@ -102,6 +105,7 @@ public class StudentService {
 
     }
 
+    // remove student with regNo 'regNo'
     public void removeStudentByRegNo(String regNo) {
         Student student = getStudentByRegNo(regNo);
         if( student == null) {
@@ -110,4 +114,12 @@ public class StudentService {
         studentRepository.delete(student);
     }
 
+    // returns a list of courses enrolled by the student
+    public List<Course> getAllCourses(String regNo) {
+        Student student = getStudentByRegNo(regNo);
+        if( student == null) {
+            throw new RuntimeException("Student does not exist");
+        }
+        return student.getEnrolledCourses();
+    }
 }

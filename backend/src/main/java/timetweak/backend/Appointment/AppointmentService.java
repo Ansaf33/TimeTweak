@@ -45,7 +45,7 @@ public class AppointmentService {
         return s.getAppointmentList();
     }
 
-    // adding appointment to relation ( ... need to add the appointment to the student and faculty as well )
+    // adding appointment to relation
     public void addAppointment(Appointment appointment) {
         Student s = studentRepository.findByRegNo(appointment.getClientIdentifier());
         if(s == null) {
@@ -79,6 +79,7 @@ public class AppointmentService {
         return f.getAppointmentList();
     }
 
+    // removes appointment from database
     public void removeAppointment(String appId) {
         Appointment a = appointmentRepository.findAppointmentByAppId(appId);
         if(a == null) {

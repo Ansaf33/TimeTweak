@@ -25,6 +25,10 @@ public class StudentController {
         return studentService.getStudentByRegNo(regNo);
     }
 
+    @GetMapping("/reg/{regNo}/courses/all")
+    public List<Course> getAllCourses(@PathVariable("regNo") String regNo) {
+        return studentService.getAllCourses(regNo);
+    }
 
     @PostMapping("/add")
     public void addStudent(@RequestBody Student student) {
@@ -41,7 +45,7 @@ public class StudentController {
         studentService.addCourseToStudent(regNo,courseId);
     }
 
-    @GetMapping("/reg/{regNo}/appointment/all")
+    @GetMapping("/reg/{regNo}/appointments/all")
     public List<Appointment> getAllAppointments(@PathVariable("regNo") String regNo) {
         return studentService.getAllAppointments(regNo);
     }
