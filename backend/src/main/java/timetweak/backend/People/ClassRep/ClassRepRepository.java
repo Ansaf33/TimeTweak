@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ClassRepRepository extends JpaRepository<ClassRep, Long> {
 
+    public ClassRep findByRegNo(String regNo);
+
 }

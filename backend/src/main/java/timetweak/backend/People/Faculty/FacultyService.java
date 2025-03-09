@@ -8,6 +8,9 @@ import timetweak.backend.Appointment.AppointmentService;
 import timetweak.backend.Appointment.appStatus;
 import timetweak.backend.Course.Course;
 import timetweak.backend.People.Student.Student;
+import timetweak.backend.Reschedule.Reschedule;
+import timetweak.backend.Reschedule.RescheduleRepository;
+import timetweak.backend.Reschedule.reqStatus;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +20,13 @@ public class FacultyService {
 
     private final FacultyRepository facultyRepository;
     private final AppointmentRepository appointmentRepository;
+    private final RescheduleRepository rescheduleRepository;
 
     @Autowired
-    public FacultyService(FacultyRepository facultyRepository, AppointmentRepository appointmentRepository) {
+    public FacultyService(FacultyRepository facultyRepository, AppointmentRepository appointmentRepository, RescheduleRepository rescheduleRepository) {
         this.facultyRepository = facultyRepository;
         this.appointmentRepository = appointmentRepository;
+        this.rescheduleRepository = rescheduleRepository;
     }
 
 
@@ -96,5 +101,22 @@ public class FacultyService {
         }
         return a;
 
+    }
+
+    // updating status for rescheduling
+    public void updateReschedule(String facultyId, String rescheduleId, reqStatus newStatus) {
+        Faculty f = getFacultyById(facultyId);
+        if( f == null ){
+            throw new RuntimeException("Faculty with same ID does not exist");
+        }
+        Reschedule r = rescheduleRepository.findRescheduleByRescheduleId(rescheduleId);
+        if( r == null ) {
+            throw new RuntimeException("Reschedule with rescheduleId " + rescheduleId + " not found");
+        }
+        if( !f.getRescheduleList().contains(r) ){
+            throw new RuntimeException("Reschedule with rescheduleId " + rescheduleId + " not found in Faculty");
+        }
+        r.setStatus(newStatus);
+        rescheduleRepository.save(r);
     }
 }

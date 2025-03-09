@@ -1,6 +1,6 @@
 package timetweak.backend.Reschedule;
 
-public enum requestStatus {
+public enum reqStatus {
     PENDING,
     APPROVED,
     REJECTED

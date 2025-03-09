@@ -5,10 +5,13 @@ import org.springframework.stereotype.Service;
 import timetweak.backend.People.Student.Student;
 import timetweak.backend.People.Student.StudentRepository;
 
+import java.util.List;
+
 @Service
 public class ClassRepService {
     private final ClassRepRepository classRepRepository;
     private final StudentRepository studentRepository;
+
 
     @Autowired
     public ClassRepService(ClassRepRepository classRepRepository, StudentRepository studentRepository) {
@@ -16,17 +19,23 @@ public class ClassRepService {
         this.studentRepository = studentRepository;
     }
 
-    // returns class-rep by regNo
-    public Student getStudentByRegNo(String regNo) {
-        return studentRepository.findByRegNo(regNo);
+    // get class-rep by registration number in the student database
+    public ClassRep getClassRepByRegNo(String id) {
+        return classRepRepository.findByRegNo(id);
     }
+
 
     // adds class-rep to database
     public void addClassRep(ClassRep classRep) {
-        Student existingStudent = getStudentByRegNo(classRep.getRegNo());
+        Student existingStudent = studentRepository.findByRegNo(classRep.getRegNo());
         if (existingStudent != null) {
             throw new RuntimeException("Student with registration number already exists");
         }
         classRepRepository.save(classRep);
+    }
+
+    // getting a list of all students
+    public List<ClassRep> getAllClassReps() {
+        return classRepRepository.findAll();
     }
 }

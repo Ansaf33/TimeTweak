@@ -7,6 +7,7 @@ import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Course.Course;
 import timetweak.backend.People.People;
 import timetweak.backend.People.roleType;
+import timetweak.backend.Reschedule.Reschedule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,11 @@ public class Faculty extends People {
             orphanRemoval = true
     )
     private List<Appointment>appointmentList = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "faculty"
+    )
+    private List<Reschedule>rescheduleList = new ArrayList<>();
 
     public Faculty() {}
 
@@ -62,5 +68,23 @@ public class Faculty extends People {
         return courseList;
     }
 
+    public void addReschedule(Reschedule reschedule) {
+        rescheduleList.add(reschedule);
+    }
 
+    public List<Reschedule> getRescheduleList() {
+        return rescheduleList;
+    }
+
+    public void setRescheduleList(List<Reschedule> rescheduleList) {
+        this.rescheduleList = rescheduleList;
+    }
+
+    public void setAppointmentList(List<Appointment> appointmentList) {
+        this.appointmentList = appointmentList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
+    }
 }

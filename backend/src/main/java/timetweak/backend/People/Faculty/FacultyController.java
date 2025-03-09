@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Appointment.appStatus;
 import timetweak.backend.Course.Course;
+import timetweak.backend.Reschedule.reqStatus;
 
 import java.util.List;
 
@@ -52,6 +53,11 @@ public class FacultyController {
     @PutMapping("/id/{facultyId}/appointment/{appId}/to/{newStatus}")
     public void updateAppointment(@PathVariable("facultyId") String facultyId,@PathVariable("appId") String appId, @PathVariable("newStatus") appStatus newStatus) {
         facultyService.updateAppointment(facultyId,appId,newStatus);
+    }
+
+    @PutMapping("/id/{facultyId}/reschedule/{rescheduleId}/to/{newStatus}")
+    public void updateReschedule(@PathVariable("facultyId") String facultyId, @PathVariable("rescheduleId") String rescheduleId, @PathVariable("newStatus") reqStatus newStatus) {
+        facultyService.updateReschedule(facultyId,rescheduleId,newStatus);
     }
 
 

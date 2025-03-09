@@ -6,6 +6,8 @@ import timetweak.backend.People.Student.Student;
 import timetweak.backend.People.Student.StudentRepository;
 import timetweak.backend.People.Student.StudentService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/CR")
 public class ClassRepController {
@@ -21,12 +23,17 @@ public class ClassRepController {
 
     @GetMapping("/reg/{regNo}")
     public Student getClassRep(@PathVariable("regNo") String regNo) {
-        return classRepService.getStudentByRegNo("regNo");
+        return studentService.getStudentByRegNo(regNo);
     }
 
     @PostMapping("/add")
     public void addClassRep(@RequestBody ClassRep classRep) {
         classRepService.addClassRep(classRep);
+    }
+
+    @GetMapping("/all")
+    public List<ClassRep> getAllClassRep() {
+        return classRepService.getAllClassReps();
     }
 
 
