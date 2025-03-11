@@ -41,29 +41,23 @@ public class TimeTableEntry {
     private Course course;
     private String courseIdentifier;
 
-    private LocalDate date;
+    private DayOfWeek dayOfWeek;
 
 
     public TimeTableEntry() {}
 
-    public TimeTableEntry(LocalDate date, slotName slotIdentifier,String courseIdentifier) {
-        this.date = date;
-
+    public TimeTableEntry(DayOfWeek dayOfWeek, slotName slotIdentifier,String courseIdentifier) {
+        this.dayOfWeek = dayOfWeek;
         this.slotIdentifier = slotIdentifier;
         this.courseIdentifier = courseIdentifier;
     }
 
-    public TimeTableEntry(Slot slot, Course course, LocalDate date, timing startTime, timing endTime) {
+    public TimeTableEntry(Slot slot, Course course, DayOfWeek day, timing startTime, timing endTime) {
         this.slot = slot;
         this.course = course;
-        this.date = date;
+        this.dayOfWeek = day;
     }
 
-    public TimeTableEntry(slotName slotIdentifier, String courseIdentifier, LocalDate date) {
-        this.slotIdentifier = slotIdentifier;
-        this.courseIdentifier = courseIdentifier;
-        this.date = date;
-    }
 
     public slotName getSlotIdentifier() {
         return slotIdentifier;
@@ -97,13 +91,6 @@ public class TimeTableEntry {
         this.course = course;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
     public Long getId() {
         return id;
@@ -111,5 +98,13 @@ public class TimeTableEntry {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 }

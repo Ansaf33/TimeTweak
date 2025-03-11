@@ -26,5 +26,10 @@ public class TimeTableEntryController {
         timeTableEntryService.addEntry(entry);
     }
 
+    @DeleteMapping("/remove")
+    public void removeEntry(@RequestBody TimeTableEntry entry) {
+        timeTableEntryService.remove(entry);
+    }
+
 
 }

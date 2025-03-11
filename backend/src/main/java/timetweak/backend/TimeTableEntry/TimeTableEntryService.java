@@ -40,4 +40,16 @@ public class TimeTableEntryService {
         // make change in timetable repository
         timeTableEntryRepository.save(entry);
     }
+
+    // add list of timetables (for configuration purposes)
+    public void addListofEntries(List<TimeTableEntry> entries) {
+        for (TimeTableEntry entry : entries) {
+            addEntry(entry);
+        }
+    }
+
+    // removing a timetable entry
+    public void remove(TimeTableEntry entry) {
+        timeTableEntryRepository.delete(entry);
+    }
 }
