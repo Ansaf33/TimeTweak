@@ -11,6 +11,7 @@ import timetweak.backend.People.Student.Student;
 import timetweak.backend.Slot.Slot;
 import timetweak.backend.Slot.SlotService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,7 +53,7 @@ public class RescheduleService {
     // adding a reschedule request
     public void add(Reschedule reschedule) {
 
-        // add Slot attribute
+        // set the slots
         Slot ogs = slotService.getSlot(reschedule.getOgSlotIdentifier());
         Slot ns = slotService.getSlot(reschedule.getNewSlotIdentifier());
         if( ogs == null || ns == null ){
@@ -61,24 +62,20 @@ public class RescheduleService {
         reschedule.setOgSlot(ogs);
         reschedule.setNewSlot(ns);
 
-        // make changes in faculty repository
+        // set the faculty
         Faculty f = facultyService.getFacultyById(reschedule.getFacultyIdentifier());
         if( f == null ){
             throw new RuntimeException("Faculty not found");
         }
         reschedule.setFaculty(f);
-        f.addReschedule(reschedule);
-        facultyRepository.save(f);
 
-
-        // make changes in the class-rep repository
+        // set the class-rep
         ClassRep CR = classRepService.getClassRepByRegNo(reschedule.getCrIdentifier());
         if(CR == null) {
             throw new RuntimeException("Class-Rep not found");
         }
         reschedule.setCr(CR);
-        CR.addRequest(reschedule);
-        classRepRepository.save(CR);
+
 
         // make changes in the rescheduling repository
         reschedule.setRescheduleId(randomUUID().toString());
@@ -86,6 +83,7 @@ public class RescheduleService {
 
     }
 
+    // remove a rescheduled request by its rescheduleId
     public void remove(String id) {
         Reschedule r = rescheduleRepository.findRescheduleByRescheduleId(id);
         if( r == null ){
@@ -93,5 +91,7 @@ public class RescheduleService {
         }
         rescheduleRepository.delete(r);
     }
+
+
 
 }

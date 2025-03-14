@@ -9,4 +9,6 @@ public interface RescheduleRepository extends JpaRepository<Reschedule, Long> {
     void deleteRescheduleByRescheduleId(String id);
 
     Reschedule findRescheduleByRescheduleId(String id);
+
+
 }
