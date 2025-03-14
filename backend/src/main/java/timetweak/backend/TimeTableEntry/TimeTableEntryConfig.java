@@ -50,9 +50,8 @@ public class TimeTableEntryConfig {
                 DayOfWeek entryDay = entry.getDate().getDayOfWeek();
                 LocalDate nextOccurence = LocalDate.now().with(entryDay);
 
-                if( !nextOccurence.isAfter(LocalDate.now()) ){
+                if( nextOccurence.isBefore(LocalDate.now()) ){
                     nextOccurence = nextOccurence.plusWeeks(1);
-
                 }
 
                 entry.setDate(nextOccurence);
