@@ -2,6 +2,7 @@ package timetweak.backend.TimeTableEntry;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 import timetweak.backend.Components.slotName;
 import timetweak.backend.Components.timing;
 import timetweak.backend.Course.Course;
@@ -24,6 +25,7 @@ public class TimeTableEntry {
             generator = "TimeTableEntry_sequence"
     )
     private Long id;
+    private typeOfEntry type;
 
     @ManyToOne
     @JoinColumn(
@@ -41,23 +43,25 @@ public class TimeTableEntry {
     private Course course;
     private String courseIdentifier;
 
-    private DayOfWeek dayOfWeek;
+    private LocalDate date;
 
 
     public TimeTableEntry() {}
 
-    public TimeTableEntry(DayOfWeek dayOfWeek, slotName slotIdentifier,String courseIdentifier) {
-        this.dayOfWeek = dayOfWeek;
+    public TimeTableEntry(LocalDate date, slotName slotIdentifier, String courseIdentifier, typeOfEntry type) {
+        this.date = date;
         this.slotIdentifier = slotIdentifier;
         this.courseIdentifier = courseIdentifier;
+        this.type = type;
     }
 
-    public TimeTableEntry(Slot slot, Course course, DayOfWeek day, timing startTime, timing endTime) {
-        this.slot = slot;
-        this.course = course;
-        this.dayOfWeek = day;
+    public typeOfEntry getType() {
+        return type;
     }
 
+    public void setType(typeOfEntry type) {
+        this.type = type;
+    }
 
     public slotName getSlotIdentifier() {
         return slotIdentifier;
@@ -100,11 +104,11 @@ public class TimeTableEntry {
         this.id = id;
     }
 
-    public DayOfWeek getDayOfWeek() {
-        return dayOfWeek;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

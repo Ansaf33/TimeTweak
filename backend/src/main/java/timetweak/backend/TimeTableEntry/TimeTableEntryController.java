@@ -3,6 +3,7 @@ package timetweak.backend.TimeTableEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -30,6 +31,7 @@ public class TimeTableEntryController {
     public void removeEntry(@RequestBody TimeTableEntry entry) {
         timeTableEntryService.remove(entry);
     }
+
 
 
 }

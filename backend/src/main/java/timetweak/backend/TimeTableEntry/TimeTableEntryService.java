@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import timetweak.backend.Course.CourseRepository;
 import timetweak.backend.Slot.SlotRepository;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,11 +34,9 @@ public class TimeTableEntryService {
 
         // make change in the course repository
         entry.setCourse(courseRepository.findByCourseId(entry.getCourseIdentifier()));
-        courseRepository.save(entry.getCourse());
 
         // make change in slot repository
         entry.setSlot(slotRepository.findSlotByName(entry.getSlotIdentifier()));
-        slotRepository.save(entry.getSlot());
 
         // make change in timetable repository
         timeTableEntryRepository.save(entry);
@@ -52,4 +53,20 @@ public class TimeTableEntryService {
     public void remove(TimeTableEntry entry) {
         timeTableEntryRepository.delete(entry);
     }
+
+    // removing a list of timetable entries
+    public void removeListofEntries(List<TimeTableEntry> entries) {
+        for (TimeTableEntry entry : entries) {
+            remove(entry);
+        }
+    }
+
+    // gets list of timetable by date
+    public List<TimeTableEntry> getEntriesByDate(LocalDate date) {
+        return timeTableEntryRepository.findTimeTableEntriesByDate(date);
+    }
+
+
+
+
 }
