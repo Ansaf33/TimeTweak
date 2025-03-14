@@ -50,7 +50,7 @@ public class Appointment {
     private LocalDate date;
     private String reason;
 
-    public Appointment(appStatus status, slotName slot,timing startTime, timing endTime,String recipientIdentifier, String clientIdentifier, LocalDate date, String reason) {
+    public Appointment(appStatus status, slotName slot,String recipientIdentifier, String clientIdentifier, LocalDate date, String reason) {
         this.status = status;
         this.slot = slot;
         this.recipientIdentifier = recipientIdentifier;

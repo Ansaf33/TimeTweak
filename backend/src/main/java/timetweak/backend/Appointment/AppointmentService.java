@@ -56,14 +56,9 @@ public class AppointmentService {
 
         // add appointment to student repository
         appointment.setClient(s);
-        s.addAppointment(appointment);
-        studentRepository.save(s);
 
         // add appointment to faculty repository
         appointment.setRecipient(f);
-        f.addAppointment(appointment);
-        facultyRepository.save(f);
-
 
         // add appointment to appointment repository ( ... generate unique appointment ID )
         appointment.setAppId(UUID.randomUUID().toString());
