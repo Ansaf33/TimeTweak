@@ -12,26 +12,26 @@ import java.util.List;
 @Configuration
 public class TimeTableEntryConfig {
 
-    //@Bean
+    @Bean
     CommandLineRunner runner(TimeTableEntryRepository repo,TimeTableEntryService service) {
         return args -> {
             List<TimeTableEntry> entries = List.of(
                     // COMPUTER NETWORKS
-                    new TimeTableEntry(LocalDate.of(2025,3,10),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL),
-                    new TimeTableEntry(LocalDate.of(2025,3,13),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL),
-                    new TimeTableEntry(LocalDate.of(2025,3,14),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL),
+                    new TimeTableEntry(LocalDate.of(2025,3,10),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,13),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,14),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL,true),
                     // COMPILER DESIGN
-                    new TimeTableEntry(LocalDate.of(2025,3,10),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL),
-                    new TimeTableEntry(LocalDate.of(2025,3,11),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL),
-                    new TimeTableEntry(LocalDate.of(2025,3,14),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL),
+                    new TimeTableEntry(LocalDate.of(2025,3,10),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,11),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,14),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL,true),
                     // SOFTWARE ENGINEERING
-                    new TimeTableEntry(LocalDate.of(2025,3,10),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL),
-                    new TimeTableEntry(LocalDate.of(2025,3,11),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL),
-                    new TimeTableEntry(LocalDate.of(2025,3,12),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL),
+                    new TimeTableEntry(LocalDate.of(2025,3,10),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,11),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,12),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL,true),
                     // PRINCIPLES OF MANAGEMENT
-                    new TimeTableEntry(LocalDate.of(2025,3,11),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL),
-                    new TimeTableEntry(LocalDate.of(2025,3,12),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL),
-                    new TimeTableEntry(LocalDate.of(2025,3,13),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL)
+                    new TimeTableEntry(LocalDate.of(2025,3,11),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,12),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,13),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true)
             );
             service.addListofEntries(entries);
 
@@ -40,7 +40,7 @@ public class TimeTableEntryConfig {
 
 
 
-    @Bean
+   @Bean
     CommandLineRunner commandLineRunner(TimeTableEntryRepository repo) {
         return args -> {
             // get all entries

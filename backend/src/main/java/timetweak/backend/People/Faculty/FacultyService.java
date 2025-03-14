@@ -11,6 +11,10 @@ import timetweak.backend.People.Student.Student;
 import timetweak.backend.Reschedule.Reschedule;
 import timetweak.backend.Reschedule.RescheduleRepository;
 import timetweak.backend.Reschedule.reqStatus;
+import timetweak.backend.TimeTableEntry.TimeTableEntry;
+import timetweak.backend.TimeTableEntry.TimeTableEntryRepository;
+import timetweak.backend.TimeTableEntry.TimeTableEntryService;
+import timetweak.backend.TimeTableEntry.typeOfEntry;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,18 +26,22 @@ public class FacultyService {
     private final AppointmentRepository appointmentRepository;
     private final RescheduleRepository rescheduleRepository;
 
+    private final TimeTableEntryRepository timeTableEntryRepository;
+    private final TimeTableEntryService timeTableEntryService;
+
     @Autowired
-    public FacultyService(FacultyRepository facultyRepository, AppointmentRepository appointmentRepository, RescheduleRepository rescheduleRepository) {
+    public FacultyService(FacultyRepository facultyRepository, AppointmentRepository appointmentRepository, RescheduleRepository rescheduleRepository, TimeTableEntryRepository timeTableEntryRepository, TimeTableEntryService timeTableEntryService) {
         this.facultyRepository = facultyRepository;
         this.appointmentRepository = appointmentRepository;
         this.rescheduleRepository = rescheduleRepository;
+        this.timeTableEntryRepository = timeTableEntryRepository;
+        this.timeTableEntryService = timeTableEntryService;
     }
 
 
     // returns faculty by facultyID
     public Faculty getFacultyById(String facultyId) {
-        Faculty f = facultyRepository.findByFacultyId(facultyId);
-        return f;
+        return facultyRepository.findByFacultyId(facultyId);
     }
 
     // adds faculty to database
@@ -100,7 +108,6 @@ public class FacultyService {
             throw new RuntimeException("Appointment does not exist in faculty.");
         }
         return a;
-
     }
 
     // updating status for rescheduling
@@ -117,6 +124,23 @@ public class FacultyService {
             throw new RuntimeException("Reschedule with rescheduleId " + rescheduleId + " not found in Faculty");
         }
         r.setStatus(newStatus);
-        rescheduleRepository.save(r);
+
+        // ------------------------ if request is approved by faculty, changes made on TimeTableEntry
+        if( newStatus == reqStatus.APPROVED) {
+            TimeTableEntry oldEntry = timeTableEntryRepository.findTimeTableEntryByDateAndSlot(
+                    r.getOgDate(),
+                    r.getOgSlot()
+            );
+            oldEntry.setActive(false);
+            TimeTableEntry modifiedEntry = new TimeTableEntry(r.getNewDate(), r.getNewSlotIdentifier(), oldEntry.getCourseIdentifier(), typeOfEntry.MODIFIED,true);
+            timeTableEntryService.addEntry(modifiedEntry);
+            rescheduleRepository.delete(r);
+        }
+        else{
+            rescheduleRepository.save(r);
+        }
+
+
+
     }
 }

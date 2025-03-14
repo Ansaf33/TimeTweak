@@ -9,7 +9,10 @@ import timetweak.backend.People.Faculty.FacultyRepository;
 import timetweak.backend.People.Faculty.FacultyService;
 import timetweak.backend.People.Student.Student;
 import timetweak.backend.Slot.Slot;
+import timetweak.backend.Slot.SlotRepository;
 import timetweak.backend.Slot.SlotService;
+import timetweak.backend.TimeTableEntry.TimeTableEntry;
+import timetweak.backend.TimeTableEntry.TimeTableEntryRepository;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,19 +24,17 @@ import static java.util.UUID.randomUUID;
 public class RescheduleService {
 
     private final RescheduleRepository rescheduleRepository;
-    private final ClassRepService classRepService;
     private final ClassRepRepository classRepRepository;
-    private final SlotService slotService;
-    private final FacultyService facultyService;
     private final FacultyRepository facultyRepository;
+    private final SlotRepository slotRepository;
+    private final TimeTableEntryRepository timeTableEntryRepository;
 
-    public RescheduleService(RescheduleRepository rescheduleRepository, ClassRepService classRepService, ClassRepRepository classRepRepository, SlotService slotService, FacultyService facultyService, FacultyRepository facultyRepository) {
+    public RescheduleService(SlotRepository slotRepository,RescheduleRepository rescheduleRepository, ClassRepRepository classRepRepository, FacultyRepository facultyRepository, TimeTableEntryRepository timeTableEntryRepository) {
         this.rescheduleRepository = rescheduleRepository;
-        this.classRepService = classRepService;
         this.classRepRepository = classRepRepository;
-        this.slotService = slotService;
-        this.facultyService = facultyService;
         this.facultyRepository = facultyRepository;
+        this.slotRepository = slotRepository;
+        this.timeTableEntryRepository = timeTableEntryRepository;
     }
 
     // returning all reschedule requests
@@ -43,7 +44,7 @@ public class RescheduleService {
 
     // returns requests made by CR of ID 'ID'
     public List<Reschedule> getRequestsById(String id) {
-        ClassRep cr = classRepService.getClassRepByRegNo(id);
+        ClassRep cr = classRepRepository.findByRegNo(id);
         if( cr == null ){
             throw new RuntimeException("Student not found");
         }
@@ -54,8 +55,8 @@ public class RescheduleService {
     public void add(Reschedule reschedule) {
 
         // set the slots
-        Slot ogs = slotService.getSlot(reschedule.getOgSlotIdentifier());
-        Slot ns = slotService.getSlot(reschedule.getNewSlotIdentifier());
+        Slot ogs = slotRepository.findSlotByName(reschedule.getOgSlotIdentifier());
+        Slot ns = slotRepository.findSlotByName(reschedule.getNewSlotIdentifier());
         if( ogs == null || ns == null ){
             throw new RuntimeException("Slot not found");
         }
@@ -63,19 +64,36 @@ public class RescheduleService {
         reschedule.setNewSlot(ns);
 
         // set the faculty
-        Faculty f = facultyService.getFacultyById(reschedule.getFacultyIdentifier());
+        Faculty f = facultyRepository.findByFacultyId(reschedule.getFacultyIdentifier());
         if( f == null ){
             throw new RuntimeException("Faculty not found");
         }
         reschedule.setFaculty(f);
 
         // set the class-rep
-        ClassRep CR = classRepService.getClassRepByRegNo(reschedule.getCrIdentifier());
+        ClassRep CR = classRepRepository.findByRegNo(reschedule.getCrIdentifier());
         if(CR == null) {
             throw new RuntimeException("Class-Rep not found");
         }
         reschedule.setCr(CR);
 
+        // -------------------------------------- VALIDATE DATA ---------------------------------------
+        TimeTableEntry existingEntryInOrigin = timeTableEntryRepository.findTimeTableEntryByDateAndSlot(
+                reschedule.getOgDate(),
+                reschedule.getOgSlot()
+        );
+        if( existingEntryInOrigin == null || !existingEntryInOrigin.isActive() ){
+            throw new RuntimeException("Entry of date " + reschedule.getOgDate() + " and slot " + reschedule.getOgSlot().getName() + " not occupied.");
+        }
+        TimeTableEntry existingEntryInFinal = timeTableEntryRepository.findTimeTableEntryByDateAndSlot(
+                reschedule.getNewDate(),
+                reschedule.getNewSlot()
+        );
+        if( existingEntryInFinal != null || existingEntryInOrigin.isActive() ){
+            throw new RuntimeException("Entry of date " + reschedule.getNewDate() + " and slot " + reschedule.getNewSlot().getName() + " is occupied.");
+        }
+
+        // --------------------------------------- VALIDATION DONE ------------------------------------
 
         // make changes in the rescheduling repository
         reschedule.setRescheduleId(randomUUID().toString());

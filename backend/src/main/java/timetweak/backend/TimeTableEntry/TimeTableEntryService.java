@@ -29,6 +29,11 @@ public class TimeTableEntryService {
         return timeTableEntryRepository.findAll();
     }
 
+    // get active timetable entries
+    public List<TimeTableEntry> getActiveEntries(boolean status) {
+        return timeTableEntryRepository.findTimeTableEntriesByActive(status);
+    }
+
     // add entry to timetable repository
     public void addEntry(TimeTableEntry entry) {
 

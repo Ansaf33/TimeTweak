@@ -45,14 +45,25 @@ public class TimeTableEntry {
 
     private LocalDate date;
 
+    private boolean active;
+
 
     public TimeTableEntry() {}
 
-    public TimeTableEntry(LocalDate date, slotName slotIdentifier, String courseIdentifier, typeOfEntry type) {
+    public TimeTableEntry(LocalDate date, slotName slotIdentifier, String courseIdentifier, typeOfEntry type,boolean active) {
         this.date = date;
         this.slotIdentifier = slotIdentifier;
         this.courseIdentifier = courseIdentifier;
         this.type = type;
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public typeOfEntry getType() {

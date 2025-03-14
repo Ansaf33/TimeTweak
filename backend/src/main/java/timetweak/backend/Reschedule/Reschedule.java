@@ -28,7 +28,7 @@ public class Reschedule {
     private reqStatus status;
 
     private LocalDate ogDate;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(
             name = "og_slot_id"
     )
@@ -37,7 +37,7 @@ public class Reschedule {
 
     private LocalDate newDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(
             name = "new_slot_id"
     )

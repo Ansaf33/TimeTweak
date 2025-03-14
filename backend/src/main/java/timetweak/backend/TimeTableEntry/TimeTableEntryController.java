@@ -22,6 +22,11 @@ public class TimeTableEntryController {
         return timeTableEntryService.getAllEntries();
     }
 
+    @GetMapping("/all/active/{status}")
+    public List<TimeTableEntry> getActiveEntries(@PathVariable boolean status) {
+        return timeTableEntryService.getActiveEntries(status);
+    }
+
     @PostMapping("/add")
     public void addEntry(@RequestBody TimeTableEntry entry) {
         timeTableEntryService.addEntry(entry);
@@ -31,7 +36,6 @@ public class TimeTableEntryController {
     public void removeEntry(@RequestBody TimeTableEntry entry) {
         timeTableEntryService.remove(entry);
     }
-
 
 
 }
