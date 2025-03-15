@@ -12,26 +12,26 @@ import java.util.List;
 @Configuration
 public class TimeTableEntryConfig {
 
-    @Bean
+    //@Bean
     CommandLineRunner runner(TimeTableEntryRepository repo,TimeTableEntryService service) {
         return args -> {
             List<TimeTableEntry> entries = List.of(
                     // COMPUTER NETWORKS
-                    new TimeTableEntry(LocalDate.of(2025,3,10),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(LocalDate.of(2025,3,13),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(LocalDate.of(2025,3,14),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,3),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,6),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,7),slotName.A2,"CS3006D",typeOfEntry.ORIGINAL,true),
                     // COMPILER DESIGN
-                    new TimeTableEntry(LocalDate.of(2025,3,10),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(LocalDate.of(2025,3,11),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(LocalDate.of(2025,3,14),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,3),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,4),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,7),slotName.B2,"CS3005D",typeOfEntry.ORIGINAL,true),
                     // SOFTWARE ENGINEERING
-                    new TimeTableEntry(LocalDate.of(2025,3,10),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(LocalDate.of(2025,3,11),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(LocalDate.of(2025,3,12),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,3),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,4),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,5),slotName.C2,"CS3004D",typeOfEntry.ORIGINAL,true),
                     // PRINCIPLES OF MANAGEMENT
-                    new TimeTableEntry(LocalDate.of(2025,3,11),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(LocalDate.of(2025,3,12),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(LocalDate.of(2025,3,13),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true)
+                    new TimeTableEntry(LocalDate.of(2025,3,4),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,5),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(LocalDate.of(2025,3,6),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true)
             );
             service.addListofEntries(entries);
 
@@ -39,26 +39,24 @@ public class TimeTableEntryConfig {
     }
 
 
-
+    // all original entries made up-to-date with current week
    @Bean
     CommandLineRunner commandLineRunner(TimeTableEntryRepository repo) {
         return args -> {
-            // get all entries
+            // get original entries
             List<TimeTableEntry> entries = repo.findTimeTableEntriesByType(typeOfEntry.ORIGINAL);
+            LocalDate thisMonday = LocalDate.now().with(DayOfWeek.MONDAY);
 
+            // change date to current week
             entries.forEach(entry -> {
                 DayOfWeek entryDay = entry.getDate().getDayOfWeek();
-                LocalDate nextOccurence = LocalDate.now().with(entryDay);
+                LocalDate nextOccurrence = thisMonday.with(entryDay);
 
-                if( nextOccurence.isBefore(LocalDate.now()) ){
-                    nextOccurence = nextOccurence.plusWeeks(1);
-                }
+                entry.setDate(nextOccurrence);
 
-                entry.setDate(nextOccurence);
                 repo.save(entry);
 
             });
-
 
         };
 

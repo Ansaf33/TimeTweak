@@ -89,7 +89,7 @@ public class RescheduleService {
                 reschedule.getNewDate(),
                 reschedule.getNewSlot()
         );
-        if( existingEntryInFinal != null || existingEntryInOrigin.isActive() ){
+        if( existingEntryInFinal != null && existingEntryInFinal.isActive()  ){
             throw new RuntimeException("Entry of date " + reschedule.getNewDate() + " and slot " + reschedule.getNewSlot().getName() + " is occupied.");
         }
 

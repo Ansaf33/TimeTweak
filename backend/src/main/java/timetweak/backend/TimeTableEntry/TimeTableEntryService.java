@@ -71,6 +71,10 @@ public class TimeTableEntryService {
         return timeTableEntryRepository.findTimeTableEntriesByDate(date);
     }
 
+    public List<TimeTableEntry> getEntriesBetweenDates(LocalDate start, LocalDate end) {
+        return timeTableEntryRepository.findTimeTableEntriesByDateBetween(start, end);
+    }
+
 
 
 

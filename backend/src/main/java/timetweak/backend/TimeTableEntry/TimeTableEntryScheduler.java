@@ -4,6 +4,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,25 +17,32 @@ public class TimeTableEntryScheduler {
         this.service = service;
     }
 
-    @Scheduled(cron = "00 30 22 * * ?")
-    public void update() {
-        LocalDate today = LocalDate.now();
-        LocalDate nextWeek = today.plusWeeks(1);
+    // get all entries of current week (all) and shift to next week (Original only), remove rest
+    @Scheduled(cron = "00 59 11 * * FRI")
+    public void update(){
+        System.out.println("Updating time table entry");
+        LocalDate thisFriday = LocalDate.now().with(DayOfWeek.FRIDAY);
+        LocalDate thisMonday = LocalDate.now().with(DayOfWeek.MONDAY);
 
-        // list of timetable entries that is to be deleted
-        List<TimeTableEntry> entries = service.getEntriesByDate(today);
+        List<TimeTableEntry> previousWeekEntries = service.getEntriesBetweenDates(thisMonday, thisFriday);
 
-        // remove today's entries (since today is done)
-        service.removeListofEntries(entries);
+        // remove last week's entries
+        service.removeListofEntries(previousWeekEntries);
 
-        // if a rescheduled class was over, no need to repeat it next week
-        List<TimeTableEntry> newEntries = entries.stream().filter(
-                entry -> entry.getType().equals(typeOfEntry.ORIGINAL)
+        // add new weeks ( filtered out by original )
+        List<TimeTableEntry> newEntries = previousWeekEntries.stream().filter(
+                entry->entry.getType().equals(typeOfEntry.ORIGINAL)
         ).map(
-                entry -> new TimeTableEntry(nextWeek, entry.getSlotIdentifier(), entry.getCourseIdentifier(), typeOfEntry.ORIGINAL,true)
+                entry -> new TimeTableEntry(
+                        entry.getDate().plusWeeks(1),
+                        entry.getSlotIdentifier(),
+                        entry.getCourseIdentifier(),
+                        typeOfEntry.ORIGINAL,
+                        true
+                )
         ).toList();
 
-        // add list of new entries
+        // save repository
         service.addListofEntries(newEntries);
 
     }
