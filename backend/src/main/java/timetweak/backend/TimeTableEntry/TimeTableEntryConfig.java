@@ -38,7 +38,7 @@ public class TimeTableEntryConfig {
         };
     }
 
-
+/*
     // all original entries made up-to-date with current week
    @Bean
     CommandLineRunner commandLineRunner(TimeTableEntryRepository repo) {
@@ -61,6 +61,6 @@ public class TimeTableEntryConfig {
         };
 
     }
-
+*/
 
 }

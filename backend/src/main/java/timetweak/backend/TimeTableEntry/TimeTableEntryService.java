@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import timetweak.backend.Course.CourseRepository;
 import timetweak.backend.Slot.SlotRepository;
 
-import java.sql.Time;
-import java.time.LocalDate;
-import java.util.Date;
+
 import java.util.List;
 
 @Service
@@ -58,23 +56,6 @@ public class TimeTableEntryService {
     public void remove(TimeTableEntry entry) {
         timeTableEntryRepository.delete(entry);
     }
-
-    // removing a list of timetable entries
-    public void removeListofEntries(List<TimeTableEntry> entries) {
-        for (TimeTableEntry entry : entries) {
-            remove(entry);
-        }
-    }
-
-    // gets list of timetable by date
-    public List<TimeTableEntry> getEntriesByDate(LocalDate date) {
-        return timeTableEntryRepository.findTimeTableEntriesByDate(date);
-    }
-
-    public List<TimeTableEntry> getEntriesBetweenDates(LocalDate start, LocalDate end) {
-        return timeTableEntryRepository.findTimeTableEntriesByDateBetween(start, end);
-    }
-
 
 
 

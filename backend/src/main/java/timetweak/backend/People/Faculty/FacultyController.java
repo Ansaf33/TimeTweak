@@ -40,6 +40,12 @@ public class FacultyController {
         return facultyService.getCoursesByFaculty(facultyId);
     }
 
+    @PostMapping("/id/{facultyId}/course/add/{courseId}")
+    public void addCourse(@PathVariable("facultyId") String facultyId, @PathVariable("courseId") String courseId) {
+        facultyService.addCourseToFaculty(facultyId,courseId);
+
+    }
+
     @GetMapping("/id/{facultyId}/appointment/all")
     public List<Appointment> getAllAppointments(@PathVariable("facultyId") String facultyId) {
         return facultyService.getAllAppointments(facultyId);

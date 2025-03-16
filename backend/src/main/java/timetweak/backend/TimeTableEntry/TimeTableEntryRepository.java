@@ -9,10 +9,10 @@ import java.util.List;
 public interface
 TimeTableEntryRepository extends JpaRepository<TimeTableEntry, Long> {
 
-    List<TimeTableEntry> findTimeTableEntriesByDate(LocalDate date);
+
     List<TimeTableEntry> findTimeTableEntriesByDateBetween(LocalDate date1, LocalDate date2);
 
-    List<TimeTableEntry> findTimeTableEntriesByType(typeOfEntry type);
+
 
     List<TimeTableEntry> findTimeTableEntriesByActive(boolean active);
 

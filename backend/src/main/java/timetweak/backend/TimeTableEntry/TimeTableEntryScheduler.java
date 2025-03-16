@@ -3,18 +3,19 @@ package timetweak.backend.TimeTableEntry;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class TimeTableEntryScheduler {
-    private final TimeTableEntryService service;
 
-    public TimeTableEntryScheduler(TimeTableEntryService service) {
-        this.service = service;
+    private final TimeTableEntryRepository repository;
+
+    public TimeTableEntryScheduler(TimeTableEntryRepository repository) {
+        this.repository = repository;
     }
 
     // get all entries of current week (all) and shift to next week (Original only), remove rest
@@ -24,10 +25,10 @@ public class TimeTableEntryScheduler {
         LocalDate thisFriday = LocalDate.now().with(DayOfWeek.FRIDAY);
         LocalDate thisMonday = LocalDate.now().with(DayOfWeek.MONDAY);
 
-        List<TimeTableEntry> previousWeekEntries = service.getEntriesBetweenDates(thisMonday, thisFriday);
+        List<TimeTableEntry> previousWeekEntries = repository.findTimeTableEntriesByDateBetween(thisMonday, thisFriday);
 
         // remove last week's entries
-        service.removeListofEntries(previousWeekEntries);
+        repository.deleteAll(previousWeekEntries);
 
         // add new weeks ( filtered out by original )
         List<TimeTableEntry> newEntries = previousWeekEntries.stream().filter(
@@ -42,8 +43,8 @@ public class TimeTableEntryScheduler {
                 )
         ).toList();
 
-        // save repository
-        service.addListofEntries(newEntries);
+        // save all in repository
+        repository.saveAll(newEntries);
 
     }
 

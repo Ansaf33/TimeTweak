@@ -7,6 +7,7 @@ import timetweak.backend.Appointment.AppointmentRepository;
 import timetweak.backend.Appointment.AppointmentService;
 import timetweak.backend.Appointment.appStatus;
 import timetweak.backend.Course.Course;
+import timetweak.backend.Course.CourseRepository;
 import timetweak.backend.People.Student.Student;
 import timetweak.backend.Reschedule.Reschedule;
 import timetweak.backend.Reschedule.RescheduleRepository;
@@ -25,17 +26,19 @@ public class FacultyService {
     private final FacultyRepository facultyRepository;
     private final AppointmentRepository appointmentRepository;
     private final RescheduleRepository rescheduleRepository;
+    private final CourseRepository courseRepository;
 
     private final TimeTableEntryRepository timeTableEntryRepository;
     private final TimeTableEntryService timeTableEntryService;
 
     @Autowired
-    public FacultyService(FacultyRepository facultyRepository, AppointmentRepository appointmentRepository, RescheduleRepository rescheduleRepository, TimeTableEntryRepository timeTableEntryRepository, TimeTableEntryService timeTableEntryService) {
+    public FacultyService(FacultyRepository facultyRepository, AppointmentRepository appointmentRepository, RescheduleRepository rescheduleRepository, TimeTableEntryRepository timeTableEntryRepository, TimeTableEntryService timeTableEntryService,CourseRepository courseRepository) {
         this.facultyRepository = facultyRepository;
         this.appointmentRepository = appointmentRepository;
         this.rescheduleRepository = rescheduleRepository;
         this.timeTableEntryRepository = timeTableEntryRepository;
         this.timeTableEntryService = timeTableEntryService;
+        this.courseRepository = courseRepository;
     }
 
 
@@ -51,6 +54,25 @@ public class FacultyService {
             throw new RuntimeException("Faculty with same ID already exists");
         }
         facultyRepository.save(faculty);
+    }
+
+    // adds course to faculty
+    public void addCourseToFaculty(String facultyId, String courseId) {
+        Faculty faculty = getFacultyById(facultyId);
+        if(faculty == null) {
+            throw new RuntimeException("Faculty with id " + facultyId + " does not exist");
+        }
+        Course course = courseRepository.findByCourseId(courseId);
+        if(course == null) {
+            throw new RuntimeException("Course with id " + courseId + " does not exist");
+        }
+
+        faculty.addCourse(course);
+        course.setFaculty(faculty);
+        facultyRepository.save(faculty);
+
+
+
     }
 
     // returns all faculties
@@ -143,4 +165,5 @@ public class FacultyService {
 
 
     }
+
 }
