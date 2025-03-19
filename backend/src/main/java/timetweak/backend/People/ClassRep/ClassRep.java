@@ -2,12 +2,12 @@ package timetweak.backend.People.ClassRep;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
-import timetweak.backend.People.People;
 import timetweak.backend.People.Student.Student;
 import timetweak.backend.People.roleType;
 import timetweak.backend.Reschedule.Reschedule;
+import timetweak.backend.People.Student.batch;
+import timetweak.backend.People.Student.branch;
 
 import java.util.List;
 
@@ -22,9 +22,10 @@ public class ClassRep extends Student {
     )
     private List<Reschedule> requests;
 
+
     public ClassRep() {}
 
-    public ClassRep(String username, String password, roleType role, String regNo, String batch, String branch, String course) {
+    public ClassRep(String username, String password, roleType role, String regNo, batch batch, branch branch, String course) {
         super(username, password, role, regNo, batch, branch);
         this.course = course;
     }

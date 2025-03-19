@@ -2,13 +2,12 @@ package timetweak.backend.TimeTableEntry;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 import timetweak.backend.Components.slotName;
-import timetweak.backend.Components.timing;
 import timetweak.backend.Course.Course;
+import timetweak.backend.People.Student.batch;
+import timetweak.backend.People.Student.branch;
 import timetweak.backend.Slot.Slot;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 @Entity
@@ -25,7 +24,7 @@ public class TimeTableEntry {
             generator = "TimeTableEntry_sequence"
     )
     private Long id;
-    private typeOfEntry type;
+
 
     @ManyToOne
     @JoinColumn(
@@ -44,13 +43,17 @@ public class TimeTableEntry {
     private String courseIdentifier;
 
     private LocalDate date;
-
     private boolean active;
+    private typeOfEntry type;
+    private branch branch;
+    private batch batch;
 
 
     public TimeTableEntry() {}
 
-    public TimeTableEntry(LocalDate date, slotName slotIdentifier, String courseIdentifier, typeOfEntry type,boolean active) {
+    public TimeTableEntry(branch branch,batch batch, LocalDate date, slotName slotIdentifier, String courseIdentifier, typeOfEntry type,boolean active) {
+        this.batch = batch;
+        this.branch = branch;
         this.date = date;
         this.slotIdentifier = slotIdentifier;
         this.courseIdentifier = courseIdentifier;
@@ -106,7 +109,6 @@ public class TimeTableEntry {
         this.course = course;
     }
 
-
     public Long getId() {
         return id;
     }
@@ -121,5 +123,21 @@ public class TimeTableEntry {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(branch branch) {
+        this.branch = branch;
+    }
+
+    public batch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(batch batch) {
+        this.batch = batch;
     }
 }

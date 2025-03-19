@@ -154,7 +154,7 @@ public class FacultyService {
                     r.getOgSlot()
             );
             oldEntry.setActive(false);
-            TimeTableEntry modifiedEntry = new TimeTableEntry(r.getNewDate(), r.getNewSlotIdentifier(), oldEntry.getCourseIdentifier(), typeOfEntry.MODIFIED,true);
+            TimeTableEntry modifiedEntry = new TimeTableEntry(oldEntry.getBranch(),oldEntry.getBatch(),r.getNewDate(), r.getNewSlotIdentifier(), oldEntry.getCourseIdentifier(), typeOfEntry.MODIFIED,true);
             timeTableEntryService.addEntry(modifiedEntry);
             rescheduleRepository.delete(r);
         }

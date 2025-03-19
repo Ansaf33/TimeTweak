@@ -2,11 +2,20 @@ package timetweak.backend.TimeTableEntry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import timetweak.backend.Components.slotName;
 import timetweak.backend.Course.CourseRepository;
+import timetweak.backend.People.Student.batch;
+import timetweak.backend.People.Student.branch;
+import timetweak.backend.Slot.Slot;
 import timetweak.backend.Slot.SlotRepository;
 
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class TimeTableEntryService {
@@ -52,11 +61,46 @@ public class TimeTableEntryService {
         }
     }
 
-    // removing a timetable entry
-    public void remove(TimeTableEntry entry) {
-        timeTableEntryRepository.delete(entry);
+
+    // returns timetable entries of branch and batch
+    public List<TimeTableEntry> getEntriesOfBranchAndBatch(branch branch, batch batch) {
+        return timeTableEntryRepository.findTimeTableEntryByBatchAndBranch(batch, branch);
     }
 
+    // set timetable entry as inactive based on date and slot
+    public void changeStatus(LocalDate date, slotName slotName, boolean active) {
+        TimeTableEntry entry = timeTableEntryRepository.findTimeTableEntryByDateAndSlotIdentifier(date, slotName);
+        if (entry == null) {
+            throw new RuntimeException("TimeTableEntry not found");
+        }
+        entry.setActive(active);
+        timeTableEntryRepository.save(entry);
+    }
+
+    // get list of free slots for a particular day
+    public List<Slot> getFreeSlots(LocalDate date,branch branch,batch batch) {
+
+        // for the particular branch and batch
+        List<TimeTableEntry>entries = timeTableEntryRepository.findTimeTableEntryByBatchAndBranch(batch, branch);
+
+        // only entries for the particular date
+        entries.removeIf(entry -> !entry.getDate().equals(date));
+
+        entries.forEach(entry -> System.out.println(entry.getDate() + " " + entry.getSlotIdentifier()));
+
+        // gather a list of all slots
+        List<Slot> slots = slotRepository.findAll();
+
+
+        // for each timetable entry, remove that slot
+        for (TimeTableEntry entry : entries) {
+            slots.remove(entry.getSlot());
+        }
+
+
+        return slots;
+
+    }
 
 
 }

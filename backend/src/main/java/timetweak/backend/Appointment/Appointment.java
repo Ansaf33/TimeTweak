@@ -24,7 +24,7 @@ public class Appointment {
     )
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "student_id"
     )
@@ -33,7 +33,7 @@ public class Appointment {
     private String clientIdentifier;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "faculty_id"
     )

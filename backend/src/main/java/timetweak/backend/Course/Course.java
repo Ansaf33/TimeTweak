@@ -2,11 +2,9 @@ package timetweak.backend.Course;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import timetweak.backend.People.Faculty.Faculty;
 import timetweak.backend.People.Student.Student;
-import timetweak.backend.Slot.Slot;
 import timetweak.backend.TimeTableEntry.TimeTableEntry;
 
 import java.util.ArrayList;
@@ -35,14 +33,13 @@ public class Course {
     @JsonBackReference
     private Faculty faculty;
 
-    @ManyToMany(
-            mappedBy = "enrolledCourses"
-    )
+    @ManyToMany(mappedBy = "enrolledCourses", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JsonIgnore
     private List<Student> enrolledStudents = new ArrayList<>();
 
     @OneToMany(
-            mappedBy = "course"
+            mappedBy = "course",
+            cascade = CascadeType.ALL
     )
     private List<TimeTableEntry> timeTableEntries = new ArrayList<>();
 

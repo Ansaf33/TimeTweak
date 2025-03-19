@@ -35,6 +35,8 @@ public class TimeTableEntryScheduler {
                 entry->entry.getType().equals(typeOfEntry.ORIGINAL)
         ).map(
                 entry -> new TimeTableEntry(
+                        entry.getBranch(),
+                        entry.getBatch(),
                         entry.getDate().plusWeeks(1),
                         entry.getSlotIdentifier(),
                         entry.getCourseIdentifier(),

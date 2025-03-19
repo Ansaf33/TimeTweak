@@ -1,9 +1,6 @@
 package timetweak.backend.People.Student;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Proxy;
 import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Course.Course;
 import timetweak.backend.People.People;
@@ -17,10 +14,10 @@ import java.util.List;
 public class Student extends People {
 
     private String regNo;
-    private String batch;
-    private String branch;
+    private branch branch;
+    private batch batch;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "student_courses",
             joinColumns = @JoinColumn(name="student_id"),
@@ -38,18 +35,10 @@ public class Student extends People {
 
     public Student() {}
 
-    public Student(String username, String password, roleType role, String regNo, String batch,String branch) {
+    public Student(String username, String password, roleType role, String regNo,batch batch, branch branch) {
         super(username, password, roleType.STUDENT);
         this.regNo = regNo;
         this.batch = batch;
-        this.branch = branch;
-    }
-
-    public String getBranch() {
-        return branch;
-    }
-
-    public void setBranch(String branch) {
         this.branch = branch;
     }
 
@@ -69,13 +58,6 @@ public class Student extends People {
         this.regNo = regNo;
     }
 
-    public String getBatch() {
-        return batch;
-    }
-
-    public void setBatch(String batch) {
-        this.batch = batch;
-    }
 
     public void addCourse(Course course) {
         enrolledCourses.add(course);
@@ -89,4 +71,19 @@ public class Student extends People {
         return enrolledCourses;
     }
 
+    public branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(branch branch) {
+        this.branch = branch;
+    }
+
+    public batch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(batch batch) {
+        this.batch = batch;
+    }
 }
