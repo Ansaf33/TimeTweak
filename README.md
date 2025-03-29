@@ -1,205 +1,196 @@
-# TimeTweak
-## Back-end API Documentation
 
-TimeTweak is developed for **Software Engineering (CS3091D)** in S6. Below is a comprehensive list of APIs available in the Spring Boot application.
+## API Documentation
 
----
-
-## **PEOPLE Entity**
-
-1. **GET /people/username/{username}**  
-   - Returns the user with the given username.
-
-2. **DELETE /people/remove/username/{username}**  
-   - Removes the user with the given username.
+This document provides a comprehensive list of APIs developed for each entity in the Spring Boot Application.
 
 ---
 
-## **STUDENT Entity**
+### **PEOPLE Entity**
 
-1. **GET /student/reg/{regNo}**  
-   - Returns details of a student with the given registration number.
+- **GET /people/username/{username}**  
+  - **Function**: Returns the user with the provided username `{username}`.
 
-2. **GET /student/reg/{regNo}/courses/all**  
-   - Returns a list of courses the student is enrolled in.
-
-3. **POST /student/add**  
-   - Adds a student to the repository.
-   - **Example Request Body:**
-     ```json
-     {
-       "username": "Gokulkrishna V",
-       "password": "thisispassword",
-       "role": "STUDENT",
-       "regNo": "B220295CS",
-       "branch": "CS",
-       "batch": "MORNING"
-     }
-     ```
-
-4. **DELETE /student/reg/{regNo}/remove**  
-   - Deletes the student with the given registration number.
-
-5. **POST /student/reg/{regNo}/add/{courseId}**  
-   - Enrolls the student in the specified course.
-
-6. **GET /student/reg/{regNo}/appointments/all**  
-   - Returns all appointments for the student.
-
-7. **GET /student/reg/{regNo}/appointment/{appId}**  
-   - Returns a specific appointment of the student.
-
-8. **PUT /student/reg/{regNo}/appointment/{appId}/update-reason**  
-   - Updates the reason for an appointment.
+- **DELETE /people/remove/username/{username}**  
+  - **Function**: Removes the user with the provided username `{username}`.
 
 ---
 
-## **FACULTY Entity**
+### **STUDENT Entity**
 
-1. **GET /faculty/id/{facultyId}**  
-   - Returns faculty details by ID.
+- **GET /student/reg/{regNo}**  
+  - **Function**: Returns details of the student with registration number `{regNo}`.
 
-2. **GET /faculty/all**  
-   - Returns a list of all faculty members.
+- **GET /student/reg/{regNo}/courses/all**  
+  - **Function**: Returns a list of courses that the student with registration number `{regNo}` is enrolled in.
 
-3. **POST /faculty/add**  
-   - Adds a faculty member (if not already present).
+- **POST /student/add**  
+  - **Function**: Adds a student to the repository.
+  - **Example Request Body**:
+    ```json
+    {
+      "username": "Gokulkrishna V",
+      "password": "thisispassword",
+      "role": "STUDENT",
+      "regNo": "B220295CS",
+      "branch": "CS",
+      "batch": "MORNING"
+    }
+    ```
 
-4. **GET /faculty/id/{facultyId}/courses**  
-   - Returns courses assigned to the faculty.
+- **DELETE /student/reg/{regNo}/remove**  
+  - **Function**: Deletes the student with registration number `{regNo}`.
 
-5. **POST /faculty/id/{facultyId}/course/add/{courseId}**  
-   - Assigns a course to the faculty.
+- **POST /student/reg/{regNo}/add/{courseId}**  
+  - **Function**: Adds course with courseId `{courseId}` to the student with registration number `{regNo}`.
 
-6. **GET /faculty/id/{facultyId}/appointments/all**  
-   - Returns all appointments where the faculty is the recipient.
+- **GET /student/reg/{regNo}/appointments/all**  
+  - **Function**: Returns a list of appointments for the student with registration number `{regNo}`.
 
-7. **GET /faculty/id/{facultyId}/appointments/{appId}**  
-   - Returns a specific appointment for the faculty.
+- **GET /student/reg/{regNo}/appointment/{appId}**  
+  - **Function**: Returns appointment details of the student with appointment ID `{appId}`.
 
-8. **PUT /faculty/id/{facultyId}/appointment/{appId}/to/{newStatus}**  
-   - Updates appointment status (PENDING, APPROVED, REJECTED).
-
-9. **PUT /faculty/id/{facultyId}/reschedule/{rescheduleId}/to/{newStatus}**  
-   - Updates a reschedule request status.
-
----
-
-## **CLASSREP Entity**
-
-1. **GET /CR/reg/{regNo}**  
-   - Returns details of the Class Representative.
-
-2. **POST /CR/add**  
-   - Adds a Class Representative.
-
-3. **GET /CR/all**  
-   - Returns all Class Representatives.
+- **PUT /student/reg/{regNo}/appointment/{appId}/update-reason**  
+  - **Function**: Allows modification of the reason for an appointment.
+  - **Request Body**: A string containing the new reason.
 
 ---
 
-## **COURSE Entity**
+### **FACULTY Entity**
 
-1. **POST /course/add**  
-   - Adds a course (not recommended as courses are predefined).
+- **GET /faculty/id/{facultyId}**  
+  - **Function**: Returns faculty details for the provided faculty ID `{facultyId}`.
 
-2. **GET /course/all**  
-   - Returns a list of all courses.
+- **GET /faculty/all**  
+  - **Function**: Returns a list of all faculty members.
 
-3. **GET /course/{courseId}**  
-   - Returns details of the specified course.
+- **POST /faculty/add**  
+  - **Function**: Adds a faculty member (already in DB, so not required).
 
-4. **GET /course/{courseId}/timing**  
-   - Returns timetable entries for the specified course.
+- **GET /faculty/id/{facultyId}/courses**  
+  - **Function**: Returns the list of courses taught by the faculty `{facultyId}`.
 
----
+- **POST /faculty/id/{facultyId}/course/add/{courseId}**  
+  - **Function**: Adds the course `{courseId}` to the faculty `{facultyId}`.
 
-## **APPOINTMENT Entity**
+- **GET /faculty/id/{facultyId}/appointments/all**  
+  - **Function**: Returns all appointments where the faculty `{facultyId}` is the recipient.
 
-1. **GET /appointment/all**  
-   - Returns all appointments.
+- **GET /faculty/id/{facultyId}/appointments/{appId}**  
+  - **Function**: Returns appointment details with ID `{appId}` for faculty `{facultyId}`.
 
-2. **GET /appointment/student/reg/{regNo}**  
-   - Returns all appointments made by the student.
+- **PUT /faculty/id/{facultyId}/appointment/{appId}/to/{newStatus}**  
+  - **Function**: Updates the status of an appointment (PENDING, APPROVED, REJECTED).
 
-3. **GET /appointment/faculty/reg/{facultyId}**  
-   - Returns all appointments where the faculty is a recipient.
-
-4. **POST /appointment/add**  
-   - Adds an appointment to the database.
-
-5. **DELETE /appointment/remove/{appId}**  
-   - Removes an appointment by ID.
+- **PUT /faculty/id/{facultyId}/reschedule/{rescheduleId}/to/{newStatus}**  
+  - **Function**: Updates the status of a reschedule request (PENDING, APPROVED, REJECTED).
 
 ---
 
-## **RESCHEDULE Entity**
+### **CLASSREP Entity**
 
-1. **GET /reschedule/all**  
-   - Returns all reschedule requests.
+- **GET /CR/reg/{regNo}**  
+  - **Function**: Returns the Class Representative with registration number `{regNo}`.
 
-2. **POST /reschedule/add**  
-   - Adds a reschedule request.
-   - **Example Request Body:**
-     ```json
-     {
-       "status": "PENDING",
-       "ogDate": "2025-04-01",
-       "ogSlotIdentifier": 5,
-       "newDate": "2025-04-02",
-       "newSlotIdentifier": 6,
-       "facultyIdentifier": "AB",
-       "crIdentifier": "B220182CS",
-       "reason": "Faculty unavailable on original date"
-     }
-     ```
+- **POST /CR/add**  
+  - **Function**: Adds a Class Representative.
+  - **Example**: Same as the student's request body.
 
-3. **DELETE /reschedule/remove/{id}**  
-   - Removes a reschedule request by ID.
-
-4. **GET /reschedule/reg/{id}**  
-   - Returns reschedule requests made by a class representative.
+- **GET /CR/all**  
+  - **Function**: Returns all Class Representatives.
 
 ---
 
-## **SLOT Entity**
+### **COURSE Entity**
 
-1. **GET /slot/all**  
-   - Returns a list of all slots.
+- **POST /course/add**  
+  - **Function**: Adds a course to the repository (not recommended, as all courses are already in the DB).
+
+- **GET /course/all**  
+  - **Function**: Returns a list of all courses.
+
+- **GET /course/{courseId}**  
+  - **Function**: Returns course details for `{courseId}`.
+  - **Example**: `/course/CS3005D`
+
+- **GET /course/{courseId}/timing**  
+  - **Function**: Returns timetable entries for course `{courseId}`.
+
+---
+
+### **APPOINTMENT Entity**
+
+- **GET /appointment/all**  
+  - **Function**: Returns a list of all appointments.
+
+- **GET /appointment/student/reg/{regNo}**  
+  - **Function**: Returns a list of all appointments made by student `{regNo}`.
+  - **Example**: `/appointment/student/reg/B220172CS`
+
+- **GET /appointment/faculty/reg/{facultyId}**  
+  - **Function**: Returns all appointments where faculty `{facultyId}` is a recipient.
+
+- **POST /appointment/add**  
+  - **Function**: Adds an appointment.
+
+- **DELETE /appointment/remove/{appId}**  
+  - **Function**: Removes an appointment with ID `{appId}`.
 
 ---
 
-## **TIMETABLE Entry Entity**
+### **RESCHEDULE Entity**
 
-1. **GET /tt/all**  
-   - Returns all timetable entries.
+- **GET /reschedule/all**  
+  - **Function**: Returns a list of all reschedule requests.
 
-2. **GET /tt/all/active/{status}**  
-   - Returns timetable entries filtered by active status.
+- **POST /reschedule/add**  
+  - **Function**: Adds a reschedule request.
+  - **Example Request Body**:
+    ```json
+    {
+      "status": "PENDING",
+      "ogDate": "2025-04-01",
+      "ogSlotIdentifier": 5,
+      "newDate": "2025-04-02",
+      "newSlotIdentifier": 6,
+      "facultyIdentifier": "AB",
+      "crIdentifier": "B220182CS",
+      "reason": "Faculty unavailable on original date"
+    }
+    ```
 
-3. **GET /tt/all/{branch}/{batch}**  
-   - Returns timetable entries for a specific branch and batch.
+- **DELETE /reschedule/remove/{id}**  
+  - **Function**: Removes reschedule request with ID `{id}`.
 
-4. **POST /tt/add**  
-   - Adds a new timetable entry.
-   - **Example Request Body:**
-     ```json
-     {
-       "date": "2025-03-21",
-       "slotIdentifier": 9,
-       "courseIdentifier": "CS4036E",
-       "active": true,
-       "type": "ORIGINAL",
-       "branch": "CS",
-       "batch": "MORNING"
-     }
-     ```
-
-5. **PUT /tt/change/date/{date}/slot/{slot}/{active}**  
-   - Updates the active status of a timetable entry.
-
-6. **GET /tt/free/slots/date/{date}/branch/{branch}/batch/{batch}**  
-   - Returns free slots for a given date, branch, and batch.
+- **GET /reschedule/reg/{id}**  
+  - **Function**: Returns reschedule requests made by class-rep `{id}`.
+  - **Example**: `/reschedule/reg/B220182CS`
 
 ---
+
+### **SLOT Entity**
+
+- **GET /slot/all**  
+  - **Function**: Returns a list of all slots.
+
+---
+
+### **TIMETABLE Entity**
+
+- **GET /tt/all**  
+  - **Function**: Returns all timetable entries.
+
+- **GET /tt/all/active/{status}**  
+  - **Function**: Returns timetable entries with active status `{status}`.
+
+- **GET /tt/all/{branch}/{batch}**  
+  - **Function**: Returns timetable entries for `{branch}` and `{batch}`.
+
+- **POST /tt/add**  
+  - **Function**: Adds a timetable entry.
+
+- **PUT /tt/change/date/{date}/slot/{slot}/{active}**  
+  - **Function**: Changes timetable entry status.
+
+- **GET /tt/free/slots/date/{date}/branch/{branch}/batch/{batch}**  
+  - **Function**: Returns free slots for `{branch}` and `{batch}` on `{date}`.
 
