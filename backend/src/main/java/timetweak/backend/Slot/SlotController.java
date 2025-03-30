@@ -9,7 +9,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/slot")
-public class SlotController {
+public class
+SlotController {
 
     private final SlotService slotService;
     @Autowired

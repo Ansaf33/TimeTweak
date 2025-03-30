@@ -33,7 +33,15 @@ public class TimeTableEntryConfig {
                     // PRINCIPLES OF MANAGEMENT
                     new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,4),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true),
                     new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,5),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,6),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true)
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,6),slotName.D2,"ME3104D",typeOfEntry.ORIGINAL,true),
+                    // ALGORITHMS IN OPTIMIZATION
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,4),slotName.H,"CS4036E",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,5),slotName.H,"CS4036E",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,7),slotName.H,"CS4036E",typeOfEntry.ORIGINAL,true),
+                    // INTRODUCTION TO INFORMATION SECURITY
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,5),slotName.H,"CS4062D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,6),slotName.H,"CS4062D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,7),slotName.H,"CS4062D",typeOfEntry.ORIGINAL,true)
             );
             service.addListofEntries(entries);
 
