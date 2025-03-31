@@ -1,0 +1,26 @@
+Student/ CR
+Name : GOKUL
+Password ....
+Batch MORNING, EVENING
+<string All caps> Branch CS
+RegNo B2xxxx
+role <enum> STUDENT, CLASS_REP, FACULTY
+
+seprate api
+Enroll courses
+
+
+FACULTY---------------------------
+
+FAC_ID <string> : SN, AB HVN
+NAME 
+Password
+role
+ 
+        sep api
+list of courses
+
+
+
+JSON---------------------
+

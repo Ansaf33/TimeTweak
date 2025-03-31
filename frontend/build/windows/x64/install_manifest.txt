@@ -1,0 +1,17 @@
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/icudtl.dat
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/flutter_windows.dll
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.bin
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/AssetManifest.json
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/FontManifest.json
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/kernel_blob.bin
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/lib/assets/animations/loadingHourGlass.json
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/lib/assets/animations/slack.json
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/lib/assets/images/logo_slack.png
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/lib/assets/images/logo_temp.png
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/lib/fonts/Loranthus.ttf
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/lib/fonts/outfit.ttf
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/lib/fonts/satoshi.ttf
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/NativeAssetsManifest.json
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/NOTICES.Z
+C:/Users/gkmai/Documents/CODING/Flutter/time_tweak/build/windows/x64/runner/Debug/data/flutter_assets/shaders/ink_sparkle.frag
