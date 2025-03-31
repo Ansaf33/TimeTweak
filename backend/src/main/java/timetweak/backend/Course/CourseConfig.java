@@ -1,11 +1,12 @@
 package timetweak.backend.Course;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import timetweak.backend.People.Faculty.FacultyService;
-
 import java.util.List;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
+
+import timetweak.backend.People.Faculty.FacultyService;
 
 @Configuration
 public class CourseConfig {

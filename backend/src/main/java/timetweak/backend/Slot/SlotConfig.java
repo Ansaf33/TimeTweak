@@ -1,18 +1,21 @@
 package timetweak.backend.Slot;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import timetweak.backend.Components.slotName;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
+
+import timetweak.backend.Components.slotName;
+
 
 @Configuration
 public class SlotConfig {
 
     //@Bean
+    @SuppressWarnings("unused")
     CommandLineRunner runner(SlotRepository slotRepository) {
         return args -> {
 

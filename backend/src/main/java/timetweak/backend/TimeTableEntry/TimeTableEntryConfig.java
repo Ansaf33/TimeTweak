@@ -1,8 +1,8 @@
 package timetweak.backend.TimeTableEntry;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
 import timetweak.backend.Components.slotName;
 import timetweak.backend.People.Student.batch;
 import timetweak.backend.People.Student.branch;
@@ -15,6 +15,7 @@ import java.util.List;
 public class TimeTableEntryConfig {
 
     //@Bean
+    @SuppressWarnings("unused")
     CommandLineRunner runner(TimeTableEntryRepository repo,TimeTableEntryService service) {
         return args -> {
             List<TimeTableEntry> entries = List.of(
@@ -39,9 +40,9 @@ public class TimeTableEntryConfig {
                     new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,5),slotName.H,"CS4036E",typeOfEntry.ORIGINAL,true),
                     new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,7),slotName.H,"CS4036E",typeOfEntry.ORIGINAL,true),
                     // INTRODUCTION TO INFORMATION SECURITY
-                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,5),slotName.H,"CS4062D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,6),slotName.H,"CS4062D",typeOfEntry.ORIGINAL,true),
-                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,7),slotName.H,"CS4062D",typeOfEntry.ORIGINAL,true)
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,5),slotName.E2,"CS4062D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,6),slotName.E2,"CS4062D",typeOfEntry.ORIGINAL,true),
+                    new TimeTableEntry(branch.CS, batch.AFTERNOON,LocalDate.of(2025,3,7),slotName.E2,"CS4062D",typeOfEntry.ORIGINAL,true)
             );
             service.addListofEntries(entries);
 
@@ -51,6 +52,7 @@ public class TimeTableEntryConfig {
 
     // all original entries made up-to-date with current week
    //@Bean
+    @SuppressWarnings("unused")
     CommandLineRunner commandLineRunner(TimeTableEntryRepository repo) {
         return args -> {
             // get original entries

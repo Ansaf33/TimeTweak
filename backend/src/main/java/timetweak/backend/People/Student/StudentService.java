@@ -1,14 +1,14 @@
 package timetweak.backend.People.Student;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Appointment.AppointmentRepository;
-import timetweak.backend.Appointment.AppointmentService;
 import timetweak.backend.Course.Course;
 import timetweak.backend.Course.CourseRepository;
-
-import java.util.List;
 
 @Service
 public class StudentService {

@@ -1,15 +1,16 @@
 package timetweak.backend.People.Faculty;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import java.util.List;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
 
 @Configuration
 public class FacultyConfig {
 
     //@Bean
+    @SuppressWarnings("unused")
     CommandLineRunner faculty_runner(FacultyRepository facultyRepository) {
         return args -> {
             List<Faculty> facultyList = List.of(

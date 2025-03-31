@@ -1,12 +1,17 @@
 package timetweak.backend.Slot;
 
-import jakarta.persistence.*;
-import timetweak.backend.Components.slotName;
-import timetweak.backend.Course.Course;
-import timetweak.backend.TimeTableEntry.TimeTableEntry;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import timetweak.backend.Components.slotName;
+import timetweak.backend.TimeTableEntry.TimeTableEntry;
 
 @Entity
 @Table
@@ -31,6 +36,8 @@ public class Slot {
     )
     private List<TimeTableEntry> timeTableEntries = new ArrayList<>();
 
+    
+
 
     public Slot() {}
 
@@ -52,6 +59,14 @@ public class Slot {
 
     public void setName(slotName name) {
         this.name = name;
+    }
+
+    public List<TimeTableEntry> getTimeTableEntries() {
+        return timeTableEntries;
+    }
+
+    public void setTimeTableEntries(List<TimeTableEntry> timeTableEntries) {
+        this.timeTableEntries = timeTableEntries;
     }
 
 

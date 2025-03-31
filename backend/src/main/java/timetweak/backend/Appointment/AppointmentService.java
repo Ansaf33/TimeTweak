@@ -1,17 +1,17 @@
 package timetweak.backend.Appointment;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.system.ApplicationPid;
 import org.springframework.stereotype.Service;
+
 import timetweak.backend.People.Faculty.Faculty;
 import timetweak.backend.People.Faculty.FacultyRepository;
 import timetweak.backend.People.Faculty.FacultyService;
 import timetweak.backend.People.Student.Student;
 import timetweak.backend.People.Student.StudentRepository;
 import timetweak.backend.People.Student.StudentService;
-
-import java.util.List;
-import java.util.UUID;
 
 @Service
 public class AppointmentService {

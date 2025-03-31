@@ -1,16 +1,19 @@
 package timetweak.backend.People.Faculty;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import org.hibernate.annotations.Proxy;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Course.Course;
 import timetweak.backend.People.People;
 import timetweak.backend.People.roleType;
 import timetweak.backend.Reschedule.Reschedule;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @PrimaryKeyJoinColumn(name="id")

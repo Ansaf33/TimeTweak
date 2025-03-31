@@ -1,7 +1,11 @@
 package timetweak.backend.TimeTableEntry;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import timetweak.backend.Components.slotName;
 import timetweak.backend.Course.CourseRepository;
 import timetweak.backend.People.Student.batch;
@@ -9,13 +13,6 @@ import timetweak.backend.People.Student.branch;
 import timetweak.backend.Slot.Slot;
 import timetweak.backend.Slot.SlotRepository;
 
-
-import java.sql.Time;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class TimeTableEntryService {

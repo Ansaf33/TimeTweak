@@ -1,13 +1,23 @@
 package timetweak.backend.Appointment;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import timetweak.backend.Components.slotName;
 import timetweak.backend.People.Faculty.Faculty;
 import timetweak.backend.People.Student.Student;
-import timetweak.backend.Components.timing;
-
-import java.time.LocalDate;
 
 @Entity
 @Table
@@ -23,6 +33,10 @@ public class Appointment {
             generator = "Appointment_sequence"
     )
     private Long id;
+
+    public Long getId() {
+        return id;
+    }
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(

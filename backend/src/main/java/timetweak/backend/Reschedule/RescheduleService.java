@@ -1,24 +1,18 @@
 package timetweak.backend.Reschedule;
 
+import java.util.List;
+import static java.util.UUID.randomUUID;
+
 import org.springframework.stereotype.Service;
+
 import timetweak.backend.People.ClassRep.ClassRep;
 import timetweak.backend.People.ClassRep.ClassRepRepository;
-import timetweak.backend.People.ClassRep.ClassRepService;
 import timetweak.backend.People.Faculty.Faculty;
 import timetweak.backend.People.Faculty.FacultyRepository;
-import timetweak.backend.People.Faculty.FacultyService;
-import timetweak.backend.People.Student.Student;
 import timetweak.backend.Slot.Slot;
 import timetweak.backend.Slot.SlotRepository;
-import timetweak.backend.Slot.SlotService;
 import timetweak.backend.TimeTableEntry.TimeTableEntry;
 import timetweak.backend.TimeTableEntry.TimeTableEntryRepository;
-
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
-
-import static java.util.UUID.randomUUID;
 
 @Service
 public class RescheduleService {

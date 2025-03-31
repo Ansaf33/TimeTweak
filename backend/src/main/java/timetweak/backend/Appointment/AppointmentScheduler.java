@@ -1,13 +1,9 @@
 package timetweak.backend.Appointment;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import timetweak.backend.TimeTableEntry.TimeTableEntry;
-import timetweak.backend.TimeTableEntry.typeOfEntry;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 

@@ -1,14 +1,15 @@
 package timetweak.backend.People.Faculty;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Appointment.AppointmentRepository;
-import timetweak.backend.Appointment.AppointmentService;
 import timetweak.backend.Appointment.appStatus;
 import timetweak.backend.Course.Course;
 import timetweak.backend.Course.CourseRepository;
-import timetweak.backend.People.Student.Student;
 import timetweak.backend.Reschedule.Reschedule;
 import timetweak.backend.Reschedule.RescheduleRepository;
 import timetweak.backend.Reschedule.reqStatus;
@@ -16,9 +17,6 @@ import timetweak.backend.TimeTableEntry.TimeTableEntry;
 import timetweak.backend.TimeTableEntry.TimeTableEntryRepository;
 import timetweak.backend.TimeTableEntry.TimeTableEntryService;
 import timetweak.backend.TimeTableEntry.typeOfEntry;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FacultyService {
