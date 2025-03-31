@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\gkmai\Documents\CODING\Flutter\time_tweak\build\windows\x64\CMakeFiles\a41969782d7c050528fcb0389d052e02\flutter_windows.dll.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gkmai\Documents\CODING\Flutter\time_tweak\build\windows\x64\CMakeFiles\8dd05ea773aff184bff80c6f109f6b12\flutter_assemble.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\gkmai\Documents\CODING\Flutter\time_tweak\windows\flutter\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\gkmai\Documents\CODING\Flutter\time_tweak\build\windows\x64\flutter\CMakeFiles\flutter_assemble" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{D52A660A-5880-3FAE-A8A3-C87A73009D32}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
