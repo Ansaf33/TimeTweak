@@ -51,6 +51,11 @@ public class StudentController {
         studentService.addCourseToStudent(regNo,courseId);
     }
 
+    @DeleteMapping("/reg/{regNo}/remove/{courseId}")
+    public void removeStudentFromReg(@PathVariable("regNo") String regNo, @PathVariable("courseId") String courseId) {
+        studentService.removeCourseFromStudent(regNo,courseId);
+    }
+
     @GetMapping("/reg/{regNo}/appointments/all")
     public List<Appointment> getAllAppointments(@PathVariable("regNo") String regNo) {
         return studentService.getAllAppointments(regNo);

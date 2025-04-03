@@ -60,6 +60,17 @@ public class StudentService {
 
     }
 
+    // remove a course that student is enrolled in
+    public void removeCourseFromStudent(String regNo,String courseId) {
+        Student student = getStudentByRegNo(regNo);
+        Course course = courseRepository.findByCourseId(courseId);
+        if (!student.getEnrolledCourses().contains(course)){
+            throw new RuntimeException("Student not enrolled in course");
+        }
+        student.removeCourse(course);
+        studentRepository.save(student);
+    }
+
     // returns all appointments made by student with regNo
     public List<Appointment> getAllAppointments(String regNo) {
         Student student = getStudentByRegNo(regNo);
