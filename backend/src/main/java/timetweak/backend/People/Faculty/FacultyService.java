@@ -3,8 +3,10 @@ package timetweak.backend.People.Faculty;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.server.ResponseStatusException;
 import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Appointment.AppointmentRepository;
 import timetweak.backend.Appointment.appStatus;
@@ -44,7 +46,7 @@ public class FacultyService {
     public Faculty getFacultyById(String facultyId) {
         Faculty f = facultyRepository.findByFacultyId(facultyId);
         if (f == null) {
-            throw new RuntimeException("Could not find faculty with id " + facultyId);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Could not find faculty with id " + facultyId);
         }
         return f;
     }
@@ -53,7 +55,7 @@ public class FacultyService {
     public void addFaculty(Faculty faculty) {
         Faculty existingFaculty = facultyRepository.findByFacultyId(faculty.getFacultyId());
         if (existingFaculty != null) {
-            throw new RuntimeException("Faculty with same ID already exists");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Faculty with id " + faculty.getFacultyId() + " already exists");
         }
         facultyRepository.save(faculty);
     }
@@ -63,7 +65,7 @@ public class FacultyService {
         Faculty faculty = getFacultyById(facultyId);
         Course course = courseRepository.findByCourseId(courseId);
         if(course == null) {
-            throw new RuntimeException("Course with id " + courseId + " does not exist");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Course with id " + courseId + " does not exist");
         }
 
         faculty.addCourse(course);
@@ -91,11 +93,8 @@ public class FacultyService {
         Faculty f = getFacultyById(facultyId);
 
         Appointment a = appointmentRepository.findAppointmentByAppId(appId);
-        if(a == null ) {
-            throw new RuntimeException("Appointment with appId " + appId + " not found");
-        }
-        if( !f.getAppointmentList().contains(a) ){
-            throw new RuntimeException("Appointment with appId " + appId + " not found in Faculty");
+        if(a == null || !f.getAppointmentList().contains(a) ) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Appointment with id " + appId + " does not exist");
         }
         a.setStatus(newStatus);
         appointmentRepository.save(a);
@@ -113,12 +112,10 @@ public class FacultyService {
     public Appointment getAppointment(String facultyId, String appointmentId) {
         Faculty f  = getFacultyById(facultyId);
         Appointment a = appointmentRepository.findAppointmentByAppId(appointmentId);
-        if (a == null) {
-            throw new RuntimeException("Appointment does not exist");
+        if ( a == null || !f.getAppointmentList().contains(a)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Appointment with id " + appointmentId + " does not exist");
         }
-        if( !f.getAppointmentList().contains(a)) {
-            throw new RuntimeException("Appointment does not exist in faculty.");
-        }
+
         return a;
     }
 
@@ -126,11 +123,8 @@ public class FacultyService {
     public void updateReschedule(String facultyId, String rescheduleId, reqStatus newStatus) {
         Faculty f = getFacultyById(facultyId);
         Reschedule r = rescheduleRepository.findRescheduleByRescheduleId(rescheduleId);
-        if( r == null ) {
-            throw new RuntimeException("Reschedule with rescheduleId " + rescheduleId + " not found");
-        }
-        if( !f.getRescheduleList().contains(r) ){
-            throw new RuntimeException("Reschedule with rescheduleId " + rescheduleId + " not found in Faculty");
+        if( r == null || !f.getRescheduleList().contains(r) ) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Reschedule with id " + rescheduleId + " does not exist");
         }
         r.setStatus(newStatus);
 
@@ -143,6 +137,7 @@ public class FacultyService {
             oldEntry.setActive(false);
             TimeTableEntry modifiedEntry = new TimeTableEntry(oldEntry.getBranch(),oldEntry.getBatch(),r.getNewDate(), r.getNewSlotIdentifier(), oldEntry.getCourseIdentifier(), typeOfEntry.MODIFIED,true);
             timeTableEntryService.addEntry(modifiedEntry);
+
             rescheduleRepository.delete(r);
         }
         else{

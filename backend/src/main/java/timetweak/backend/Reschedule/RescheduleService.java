@@ -3,8 +3,10 @@ package timetweak.backend.Reschedule;
 import java.util.List;
 import static java.util.UUID.randomUUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.server.ResponseStatusException;
 import timetweak.backend.People.ClassRep.ClassRep;
 import timetweak.backend.People.ClassRep.ClassRepRepository;
 import timetweak.backend.People.Faculty.Faculty;
@@ -40,7 +42,7 @@ public class RescheduleService {
     public List<Reschedule> getRequestsById(String id) {
         ClassRep cr = classRepRepository.findByRegNo(id);
         if( cr == null ){
-            throw new RuntimeException("Student not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Class rep not found");
         }
         return cr.getRequests();
     }
@@ -52,7 +54,7 @@ public class RescheduleService {
         Slot ogs = slotRepository.findSlotByName(reschedule.getOgSlotIdentifier());
         Slot ns = slotRepository.findSlotByName(reschedule.getNewSlotIdentifier());
         if( ogs == null || ns == null ){
-            throw new RuntimeException("Slot not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Slot not found");
         }
         reschedule.setOgSlot(ogs);
         reschedule.setNewSlot(ns);
@@ -60,14 +62,14 @@ public class RescheduleService {
         // set the faculty
         Faculty f = facultyRepository.findByFacultyId(reschedule.getFacultyIdentifier());
         if( f == null ){
-            throw new RuntimeException("Faculty not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Faculty not found");
         }
         reschedule.setFaculty(f);
 
         // set the class-rep
         ClassRep CR = classRepRepository.findByRegNo(reschedule.getCrIdentifier());
         if(CR == null) {
-            throw new RuntimeException("Class-Rep not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Class rep not found");
         }
         reschedule.setCr(CR);
 
@@ -77,14 +79,14 @@ public class RescheduleService {
                 reschedule.getOgSlot()
         );
         if( existingEntryInOrigin == null || !existingEntryInOrigin.isActive() ){
-            throw new RuntimeException("Entry of date " + reschedule.getOgDate() + " and slot " + reschedule.getOgSlot().getName() + " not occupied.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Origin Entry not occupied");
         }
         TimeTableEntry existingEntryInFinal = timeTableEntryRepository.findTimeTableEntryByDateAndSlot(
                 reschedule.getNewDate(),
                 reschedule.getNewSlot()
         );
         if( existingEntryInFinal != null && existingEntryInFinal.isActive()  ){
-            throw new RuntimeException("Entry of date " + reschedule.getNewDate() + " and slot " + reschedule.getNewSlot().getName() + " is occupied.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Final Entry is occupied");
         }
 
         // --------------------------------------- VALIDATION DONE ------------------------------------
@@ -99,7 +101,7 @@ public class RescheduleService {
     public void remove(String id) {
         Reschedule r = rescheduleRepository.findRescheduleByRescheduleId(id);
         if( r == null ){
-            throw new RuntimeException("Reschedule not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Reschedule not found");
         }
         rescheduleRepository.delete(r);
     }

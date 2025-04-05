@@ -1,7 +1,9 @@
 package timetweak.backend.Course;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import timetweak.backend.TimeTableEntry.TimeTableEntry;
 
 import java.util.List;
@@ -28,8 +30,11 @@ public class CourseService {
 
     // returns course by courseID
     public Course getCourseById(String courseId) {
-        return courseRepository.findByCourseId(courseId);
-
+        Course c = courseRepository.findByCourseId(courseId);
+        if (c == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Course not found");
+        }
+        return c;
     }
 
     // returns TimeTableEntries for course with courseId

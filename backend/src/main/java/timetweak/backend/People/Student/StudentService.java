@@ -3,8 +3,10 @@ package timetweak.backend.People.Student;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.server.ResponseStatusException;
 import timetweak.backend.Appointment.Appointment;
 import timetweak.backend.Appointment.AppointmentRepository;
 import timetweak.backend.Course.Course;
@@ -28,7 +30,7 @@ public class StudentService {
     public Student getStudentByRegNo(String regNo) {
         Student s = studentRepository.findByRegNo(regNo);
         if (s == null) {
-            throw new RuntimeException("Student with reg no " + regNo + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Student not found");
         }
         return s;
     }
@@ -39,7 +41,7 @@ public class StudentService {
 
         // if student already exists
         if (existingStudent != null) {
-            throw new IllegalArgumentException("Student already exists");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Student already exists");
         }
         studentRepository.save(student);
     }
@@ -51,12 +53,12 @@ public class StudentService {
 
         // if course does not exist
         if( course == null) {
-            throw new RuntimeException("Course does not exist");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Course not found");
         }
 
         // if student is already enrolled in course
         if (student.getEnrolledCourses().contains(course)){
-            throw new RuntimeException("Student already enrolled in course");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Student already enrolled course");
         }
 
         student.addCourse(course);
@@ -69,7 +71,7 @@ public class StudentService {
         Student student = getStudentByRegNo(regNo);
         Course course = courseRepository.findByCourseId(courseId);
         if (!student.getEnrolledCourses().contains(course)){
-            throw new RuntimeException("Student not enrolled in course");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Student not enrolled course");
         }
         student.removeCourse(course);
         studentRepository.save(student);
@@ -86,11 +88,8 @@ public class StudentService {
         Student student = getStudentByRegNo(regNo);
 
         Appointment a = appointmentRepository.findAppointmentByAppId(appointmentId);
-        if (a == null) {
-            throw new RuntimeException("Appointment does not exist");
-        }
-        if( !student.getAppointmentList().contains(a)) {
-            throw new RuntimeException("Appointment does not exist in student.");
+        if (a == null || !student.getAppointmentList().contains(a) ) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Appointment not found");
         }
         return a;
 
@@ -100,11 +99,8 @@ public class StudentService {
     public void changeAppointmentReason(String regNo,String appId,String reason) {
         Student student = getStudentByRegNo(regNo);
         Appointment a = appointmentRepository.findAppointmentByAppId(appId);
-        if (a == null) {
-            throw new RuntimeException("Appointment does not exist");
-        }
-        if( !student.getAppointmentList().contains(a)) {
-            throw new RuntimeException("Appointment does not exist in student.");
+        if (a == null || !student.getAppointmentList().contains(a)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Appointment not found");
         }
         a.setReason(reason);
         appointmentRepository.save(a);

@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import org.springframework.web.server.ResponseStatusException;
 import timetweak.backend.Components.slotName;
 import timetweak.backend.Course.CourseRepository;
 import timetweak.backend.People.Student.batch;
@@ -68,7 +70,7 @@ public class TimeTableEntryService {
     public void changeStatus(LocalDate date, slotName slotName, boolean active) {
         TimeTableEntry entry = timeTableEntryRepository.findTimeTableEntryByDateAndSlotIdentifier(date, slotName);
         if (entry == null) {
-            throw new RuntimeException("TimeTableEntry not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Timetable entry not found");
         }
         entry.setActive(active);
         timeTableEntryRepository.save(entry);
