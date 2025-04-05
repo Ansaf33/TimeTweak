@@ -26,7 +26,11 @@ public class StudentService {
 
     // returns student with registration number 'regNo'
     public Student getStudentByRegNo(String regNo) {
-        return studentRepository.findByRegNo(regNo);
+        Student s = studentRepository.findByRegNo(regNo);
+        if (s == null) {
+            throw new RuntimeException("Student with reg no " + regNo + " not found");
+        }
+        return s;
     }
 
     // adds student to database
@@ -45,14 +49,14 @@ public class StudentService {
         Student student = getStudentByRegNo(regNo);
         Course course = courseRepository.findByCourseId(courseId);
 
+        // if course does not exist
+        if( course == null) {
+            throw new RuntimeException("Course does not exist");
+        }
+
         // if student is already enrolled in course
         if (student.getEnrolledCourses().contains(course)){
             throw new RuntimeException("Student already enrolled in course");
-        }
-
-        // if course does not exist
-        if( courseRepository.findByCourseId(course.getCourseId()) == null) {
-            throw new RuntimeException("Course does not exist");
         }
 
         student.addCourse(course);
@@ -74,18 +78,13 @@ public class StudentService {
     // returns all appointments made by student with regNo
     public List<Appointment> getAllAppointments(String regNo) {
         Student student = getStudentByRegNo(regNo);
-        if( student == null) {
-            throw new RuntimeException("Student does not exist");
-        }
         return student.getAppointmentList();
     }
 
     // returns appointment made by student with 'regNo' by 'appId'
     public Appointment getAppointment(String regNo, String appointmentId) {
         Student student = getStudentByRegNo(regNo);
-        if( student == null) {
-            throw new RuntimeException("Student does not exist");
-        }
+
         Appointment a = appointmentRepository.findAppointmentByAppId(appointmentId);
         if (a == null) {
             throw new RuntimeException("Appointment does not exist");
@@ -100,9 +99,6 @@ public class StudentService {
     // updating appointment reason
     public void changeAppointmentReason(String regNo,String appId,String reason) {
         Student student = getStudentByRegNo(regNo);
-        if( student == null) {
-            throw new RuntimeException("Student does not exist");
-        }
         Appointment a = appointmentRepository.findAppointmentByAppId(appId);
         if (a == null) {
             throw new RuntimeException("Appointment does not exist");
@@ -119,18 +115,12 @@ public class StudentService {
     // remove student with regNo 'regNo'
     public void removeStudentByRegNo(String regNo) {
         Student student = getStudentByRegNo(regNo);
-        if( student == null) {
-            throw new RuntimeException("Student does not exist");
-        }
         studentRepository.delete(student);
     }
 
     // returns a list of courses enrolled by the student
     public List<Course> getAllCourses(String regNo) {
         Student student = getStudentByRegNo(regNo);
-        if( student == null) {
-            throw new RuntimeException("Student does not exist");
-        }
         return student.getEnrolledCourses();
     }
 }

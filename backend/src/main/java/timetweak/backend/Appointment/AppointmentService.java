@@ -39,20 +39,13 @@ public class AppointmentService {
     // getting appointments for a particular student with registration number 'regNo'
     public List<Appointment> getAppointmentsByStudent(String regNo) {
         Student s = studentService.getStudentByRegNo(regNo);
-        if(s == null) {
-            throw new RuntimeException("Student not found");
-        }
         return s.getAppointmentList();
     }
 
     // adding appointment to relation
     public void addAppointment(Appointment appointment) {
-        Student s = studentRepository.findByRegNo(appointment.getClientIdentifier());
-        if(s == null) {
-            throw new RuntimeException("Student not found");
-        }
-        Faculty f = facultyRepository.findByFacultyId(appointment.getRecipientIdentifier());
-
+        Student s = studentService.getStudentByRegNo(appointment.getClientIdentifier());
+        Faculty f = facultyService.getFacultyById(appointment.getRecipientIdentifier());
 
         // add appointment to student repository
         appointment.setClient(s);

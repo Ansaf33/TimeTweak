@@ -41,12 +41,6 @@ public class TimeTableEntryService {
     // add entry to timetable repository
     public void addEntry(TimeTableEntry entry) {
 
-
-//        TimeTableEntry existing = timeTableEntryRepository.findTimeTableEntryByDateAndSlotIdentifier(entry.getDate(), entry.getSlotIdentifier());
-//        if (existing != null) {
-//            throw new RuntimeException("Entry already exists");
-//        }
-
         // make change in the course repository
         entry.setCourse(courseRepository.findByCourseId(entry.getCourseIdentifier()));
 

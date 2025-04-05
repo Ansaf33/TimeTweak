@@ -42,7 +42,11 @@ public class FacultyService {
 
     // returns faculty by facultyID
     public Faculty getFacultyById(String facultyId) {
-        return facultyRepository.findByFacultyId(facultyId);
+        Faculty f = facultyRepository.findByFacultyId(facultyId);
+        if (f == null) {
+            throw new RuntimeException("Could not find faculty with id " + facultyId);
+        }
+        return f;
     }
 
     // adds faculty to database
@@ -57,9 +61,6 @@ public class FacultyService {
     // adds course to faculty
     public void addCourseToFaculty(String facultyId, String courseId) {
         Faculty faculty = getFacultyById(facultyId);
-        if(faculty == null) {
-            throw new RuntimeException("Faculty with id " + facultyId + " does not exist");
-        }
         Course course = courseRepository.findByCourseId(courseId);
         if(course == null) {
             throw new RuntimeException("Course with id " + courseId + " does not exist");
@@ -87,10 +88,7 @@ public class FacultyService {
 
     // faculty with facultyId changes appointment with appId to newStatus
     public void updateAppointment(String facultyId,String appId, appStatus newStatus) {
-        Faculty f = facultyRepository.findByFacultyId(facultyId);
-        if( f == null ){
-            throw new RuntimeException("Faculty with same ID does not exist");
-        }
+        Faculty f = getFacultyById(facultyId);
 
         Appointment a = appointmentRepository.findAppointmentByAppId(appId);
         if(a == null ) {
@@ -107,19 +105,13 @@ public class FacultyService {
 
     // getting all appointments for the faculty with facultyId
     public List<Appointment> getAllAppointments(String facultyId) {
-        Faculty f = facultyRepository.findByFacultyId(facultyId);
-        if( f == null ){
-            throw new RuntimeException("Faculty with same ID does not exist");
-        }
+        Faculty f = getFacultyById(facultyId);
         return f.getAppointmentList();
     }
 
     // getting appointment with specific appointmentId for faculty with facultyId
     public Appointment getAppointment(String facultyId, String appointmentId) {
         Faculty f  = getFacultyById(facultyId);
-        if( f == null) {
-            throw new RuntimeException("Faculty does not exist");
-        }
         Appointment a = appointmentRepository.findAppointmentByAppId(appointmentId);
         if (a == null) {
             throw new RuntimeException("Appointment does not exist");
@@ -133,9 +125,6 @@ public class FacultyService {
     // updating status for rescheduling
     public void updateReschedule(String facultyId, String rescheduleId, reqStatus newStatus) {
         Faculty f = getFacultyById(facultyId);
-        if( f == null ){
-            throw new RuntimeException("Faculty with same ID does not exist");
-        }
         Reschedule r = rescheduleRepository.findRescheduleByRescheduleId(rescheduleId);
         if( r == null ) {
             throw new RuntimeException("Reschedule with rescheduleId " + rescheduleId + " not found");
