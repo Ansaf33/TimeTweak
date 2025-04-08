@@ -40,8 +40,11 @@ This document provides a comprehensive list of APIs developed for each entity in
 - **DELETE /student/reg/{regNo}/remove**  
   - **Function**: Deletes the student with registration number `{regNo}`.
 
-- **POST /student/reg/{regNo}/add/{courseId}**  
+- **POST /student/reg/{regNo}/course/add/{courseId}**  
   - **Function**: Adds course with courseId `{courseId}` to the student with registration number `{regNo}`.
+
+- **DELETE /student/reg/{regNo}/course/remove/{courseId}**  
+  - **Function**: Removes course with courseId `{courseId}` from the student with registration number `{regNo}`.
 
 - **GET /student/reg/{regNo}/appointments/all**  
   - **Function**: Returns a list of appointments for the student with registration number `{regNo}`.
@@ -52,7 +55,15 @@ This document provides a comprehensive list of APIs developed for each entity in
 - **PUT /student/reg/{regNo}/appointment/{appId}/update-reason**  
   - **Function**: Allows modification of the reason for an appointment.
   - **Request Body**: A string containing the new reason.
+ 
+- **PUT /student/reg/{regNo}/update/username**
+  - **Function**: Changes the username of the student with registration number `{regNo}`
+  - **Request Body**: A string containing the new username
 
+- **PUT /student/reg/{regNo}/update/password**
+  - **Function**: Changes the password of the student with registration number `{regNo}`
+  - **Request Body**: A string containing the new password
+  
 ---
 
 ### **FACULTY Entity**
@@ -72,6 +83,9 @@ This document provides a comprehensive list of APIs developed for each entity in
 - **POST /faculty/id/{facultyId}/course/add/{courseId}**  
   - **Function**: Adds the course `{courseId}` to the faculty `{facultyId}`.
 
+- **DELETE /faculty/id/{facultyId}/course/remove/{courseId}**  
+  - **Function**: Removes the course `{courseId}` from the faculty `{facultyId}`.
+
 - **GET /faculty/id/{facultyId}/appointments/all**  
   - **Function**: Returns all appointments where the faculty `{facultyId}` is the recipient.
 
@@ -83,6 +97,14 @@ This document provides a comprehensive list of APIs developed for each entity in
 
 - **PUT /faculty/id/{facultyId}/reschedule/{rescheduleId}/to/{newStatus}**  
   - **Function**: Updates the status of a reschedule request (PENDING, APPROVED, REJECTED).
+ 
+- **PUT /faculty/id/{facultyId}/update/username**
+  - **Function**: Changes the username of the faculty with facultyId `{facultyId}`
+  - **Request Body**: A string containing the new username
+
+- **PUT /faculty/id/{facultyId}/update/password**
+  - **Function**: Changes the password of the faculty with facultyId `{facultyId}`
+  - **Request Body**: A string containing the new password
 
 ---
 
