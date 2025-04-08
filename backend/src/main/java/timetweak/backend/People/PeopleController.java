@@ -24,14 +24,5 @@ public class PeopleController {
         peopleService.removePeople(username);
     }
 
-    @PutMapping("/update/username/{og_username}/to/{new_username}")
-    public void updateUsername(@PathVariable String og_username, @PathVariable String new_username) {
-        peopleService.updateUsername(og_username,new_username);
-    }
-
-    @PutMapping("/update/password/{username}/to/{new_password}")
-    public void updatePassword(@PathVariable String username, @PathVariable String new_password) {
-        peopleService.updatePassword(username,new_password);
-    }
 
 }

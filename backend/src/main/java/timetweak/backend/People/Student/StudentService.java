@@ -119,4 +119,18 @@ public class StudentService {
         Student student = getStudentByRegNo(regNo);
         return student.getEnrolledCourses();
     }
+
+    // updates username of the particular student
+    public void updateUsername(String regNo, String username) {
+        Student student = getStudentByRegNo(regNo);
+        student.setUsername(username);
+        studentRepository.save(student);
+    }
+
+    // updates password of the particular student
+    public void updatePassword(String regNo, String password) {
+        Student student = getStudentByRegNo(regNo);
+        student.setPassword(password);
+        studentRepository.save(student);
+    }
 }

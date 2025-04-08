@@ -66,6 +66,17 @@ public class FacultyController {
         facultyService.updateReschedule(facultyId,rescheduleId,newStatus);
     }
 
+    @PutMapping("/id/{facultyId}/update/username")
+    public void updateUsername(@PathVariable("facultyId") String facultyId, @RequestBody String username) {
+        facultyService.updateUsername(facultyId,username);
+    }
+
+    @PutMapping("/id/{facultyId}/update/password")
+    public void updatePassword(@PathVariable("facultyId") String facultyId, @RequestBody String password) {
+        facultyService.updatePassword(facultyId,password);
+    }
+
+
 
 
 

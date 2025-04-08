@@ -148,4 +148,21 @@ public class FacultyService {
 
     }
 
+
+    // updates username of faculty
+    public void updateUsername(String facultyId, String username) {
+        Faculty f = getFacultyById(facultyId);
+        f.setUsername(username);
+        facultyRepository.save(f);
+    }
+
+    // updates password of faculty
+    public void updatePassword(String facultyId, String password) {
+        Faculty f = getFacultyById(facultyId);
+        f.setPassword(password);
+        facultyRepository.save(f);
+    }
+
+
+
 }

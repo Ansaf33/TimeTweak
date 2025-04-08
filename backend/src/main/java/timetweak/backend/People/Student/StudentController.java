@@ -71,6 +71,16 @@ public class StudentController {
         studentService.changeAppointmentReason(regNo,appId,reason);
     }
 
+    @PutMapping("/reg/{regNo}/update/username")
+    public void changeUsername(@PathVariable("regNo") String regNo,@RequestBody String username) {
+        studentService.updateUsername(regNo,username);
+    }
+
+    @PutMapping("/reg/{regNo}/update/password")
+    public void changePassword(@PathVariable("regNo") String regNo,@RequestBody String password) {
+        studentService.updatePassword(regNo,password);
+    }
+
 
 
 
