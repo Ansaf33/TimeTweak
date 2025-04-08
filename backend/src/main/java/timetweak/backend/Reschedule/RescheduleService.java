@@ -91,6 +91,10 @@ public class RescheduleService {
 
         // --------------------------------------- VALIDATION DONE ------------------------------------
 
+        // add courseID to the repository
+        TimeTableEntry ogEntry = timeTableEntryRepository.findTimeTableEntryByDateAndSlot(reschedule.getOgDate(),reschedule.getOgSlot());
+        reschedule.setCourseIdentifier(ogEntry.getCourseIdentifier());
+
         // make changes in the rescheduling repository
         reschedule.setRescheduleId(randomUUID().toString());
         rescheduleRepository.save(reschedule);

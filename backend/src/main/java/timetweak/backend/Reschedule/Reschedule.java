@@ -3,6 +3,7 @@ package timetweak.backend.Reschedule;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import timetweak.backend.Components.slotName;
+import timetweak.backend.Course.Course;
 import timetweak.backend.People.ClassRep.ClassRep;
 import timetweak.backend.People.Faculty.Faculty;
 import timetweak.backend.Slot.Slot;
@@ -60,6 +61,8 @@ public class Reschedule {
 
     private String facultyIdentifier;
     private String crIdentifier;
+
+    private String courseIdentifier;
 
     private String reason;
 
@@ -186,5 +189,13 @@ public class Reschedule {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public String getCourseIdentifier() {
+        return courseIdentifier;
+    }
+
+    public void setCourseIdentifier(String courseIdentifier) {
+        this.courseIdentifier = courseIdentifier;
     }
 }

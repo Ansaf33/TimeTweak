@@ -28,4 +28,19 @@ public class PeopleService {
     public void removePeople(String username) {
         peopleRepository.deleteByUsername(username);
     }
+
+    // update username
+    public void updateUsername(String ogUsername, String newUsername) {
+        People people = getPeopleByUsername(ogUsername);
+        people.setUsername(newUsername);
+        peopleRepository.save(people);
+    }
+
+    // update password
+    public void updatePassword(String username, String newPassword) {
+        People people = getPeopleByUsername(username);
+        people.setPassword(newPassword);
+        peopleRepository.save(people);
+    }
+
 }

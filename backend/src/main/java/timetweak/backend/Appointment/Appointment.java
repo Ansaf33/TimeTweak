@@ -45,6 +45,7 @@ public class Appointment {
     @JsonIgnore
     private Student client;
     private String clientIdentifier;
+    private String clientName;
 
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -54,6 +55,7 @@ public class Appointment {
     @JsonIgnore
     private Faculty recipient;
     private String recipientIdentifier;
+    private String recipientName;
 
     private String appId;
 
@@ -147,4 +149,19 @@ public class Appointment {
         this.slot = slot;
     }
 
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
+    }
 }

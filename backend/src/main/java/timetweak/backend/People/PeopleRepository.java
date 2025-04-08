@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PeopleRepository extends JpaRepository<People, Long> {
-
     public People findByUsername(String username);
     public void deleteByUsername(String username);
 }

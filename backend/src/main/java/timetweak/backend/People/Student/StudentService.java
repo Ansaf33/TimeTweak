@@ -30,7 +30,7 @@ public class StudentService {
     public Student getStudentByRegNo(String regNo) {
         Student s = studentRepository.findByRegNo(regNo);
         if (s == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Student not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Student with registration number " + regNo + " not found");
         }
         return s;
     }
