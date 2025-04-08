@@ -51,7 +51,7 @@ public class TimeTableEntryConfig {
 
 
     // all original entries made up-to-date with current week
-   //@Bean
+   @Bean
     @SuppressWarnings("unused")
     CommandLineRunner commandLineRunner(TimeTableEntryRepository repo) {
         return args -> {

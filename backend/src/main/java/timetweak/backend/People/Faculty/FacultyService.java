@@ -120,7 +120,7 @@ public class FacultyService {
     }
 
     // updating status for rescheduling
-    public void updateReschedule(String facultyId, String rescheduleId, reqStatus newStatus) {
+    public Reschedule updateReschedule(String facultyId, String rescheduleId, reqStatus newStatus) {
         Faculty f = getFacultyById(facultyId);
         Reschedule r = rescheduleRepository.findRescheduleByRescheduleId(rescheduleId);
         if( r == null || !f.getRescheduleList().contains(r) ) {
@@ -138,13 +138,10 @@ public class FacultyService {
             TimeTableEntry modifiedEntry = new TimeTableEntry(oldEntry.getBranch(),oldEntry.getBatch(),r.getNewDate(), r.getNewSlotIdentifier(), oldEntry.getCourseIdentifier(), typeOfEntry.MODIFIED,true);
             timeTableEntryService.addEntry(modifiedEntry);
 
-            rescheduleRepository.delete(r);
         }
-        else{
-            rescheduleRepository.save(r);
-        }
+        rescheduleRepository.save(r);
 
-
+        return r;
 
     }
 
