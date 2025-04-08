@@ -46,12 +46,12 @@ public class StudentController {
         studentService.removeStudentByRegNo(regNo);
     }
 
-    @PostMapping("/reg/{regNo}/add/{courseId}")
+    @PostMapping("/reg/{regNo}/course/add/{courseId}")
     public void addStudentToReg(@PathVariable("regNo") String regNo, @PathVariable("courseId") String courseId) {
         studentService.addCourseToStudent(regNo,courseId);
     }
 
-    @DeleteMapping("/reg/{regNo}/remove/{courseId}")
+    @DeleteMapping("/reg/{regNo}/course/remove/{courseId}")
     public void removeStudentFromReg(@PathVariable("regNo") String regNo, @PathVariable("courseId") String courseId) {
         studentService.removeCourseFromStudent(regNo,courseId);
     }

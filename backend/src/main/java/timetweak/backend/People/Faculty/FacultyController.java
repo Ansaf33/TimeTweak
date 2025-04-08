@@ -43,7 +43,11 @@ public class FacultyController {
     @PostMapping("/id/{facultyId}/course/add/{courseId}")
     public void addCourse(@PathVariable("facultyId") String facultyId, @PathVariable("courseId") String courseId) {
         facultyService.addCourseToFaculty(facultyId,courseId);
+    }
 
+    @DeleteMapping("/id/{facultyId}/course/remove/{courseId}")
+    public void removeCourse(@PathVariable("facultyId") String facultyId, @PathVariable("courseId") String courseId) {
+        facultyService.removeCourseFromFaculty(facultyId,courseId);
     }
 
     @GetMapping("/id/{facultyId}/appointment/all")

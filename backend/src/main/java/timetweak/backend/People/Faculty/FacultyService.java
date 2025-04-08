@@ -164,5 +164,14 @@ public class FacultyService {
     }
 
 
-
+    // removes course from faculty
+    public void removeCourseFromFaculty(String facultyId, String courseId) {
+        Faculty f = getFacultyById(facultyId);
+        Course c = courseRepository.findByCourseId(courseId);
+        if( !f.getCourseList().contains(c) ) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Course with id " + courseId + " does not exist in faculty " + facultyId);
+        }
+        f.removeCourse(c);
+        facultyRepository.save(f);
+    }
 }

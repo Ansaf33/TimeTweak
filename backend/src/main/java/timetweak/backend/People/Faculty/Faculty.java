@@ -67,6 +67,10 @@ public class Faculty extends People {
         courseList.add(course);
     }
 
+    public void removeCourse(Course course) {
+        courseList.remove(course);
+    }
+
     public List<Course> getCourseList() {
         return courseList;
     }
